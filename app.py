@@ -36,6 +36,9 @@ def load_labels():
 
 # --- Image Preprocessing ---
 def preprocess_image(image):
+    # Convert image to RGB if it's RGBA or grayscale
+    if image.mode != "RGB":
+        image = image.convert("RGB")
     image = ImageOps.fit(image, IMAGE_SIZE, Image.Resampling.LANCZOS)
     image_array = np.asarray(image)
     normalized_image_array = (image_array.astype(np.float32) / 127.0) - 1
@@ -76,6 +79,5 @@ if uploaded_file is not None:
 st.markdown("---")
 st.caption("Disclaimer: This tool is experimental and not a replacement for medical advice.")
 
-# This will output a public URL that you can click to access your app.
 
 
