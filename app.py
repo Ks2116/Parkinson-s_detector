@@ -77,4 +77,4 @@ st.markdown("---")
 st.caption("Disclaimer: This tool is experimental and not a replacement for medical advice.")
 
 # This will output a public URL that you can click to access your app.
-streamlit run app.py
+
