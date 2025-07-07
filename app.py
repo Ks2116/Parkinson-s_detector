@@ -36,7 +36,6 @@ def load_labels():
 
 # --- Image Preprocessing ---
 def preprocess_image(image):
-    # Convert image to RGB if it's RGBA or grayscale
     if image.mode != "RGB":
         image = image.convert("RGB")
     image = ImageOps.fit(image, IMAGE_SIZE, Image.Resampling.LANCZOS)
@@ -69,18 +68,22 @@ if uploaded_file is not None:
     image = Image.open(uploaded_file)
     st.image(image, caption="Uploaded Clock Drawing", use_column_width=True)
     st.write("Classifying...")
+
     predicted_class, confidence_score = predict_parkinsons(image, model, class_names)
+    
     st.success(f"**Prediction:** {predicted_class}")
     st.info(f"**Confidence:** {confidence_score:.2f}")
+
     if predicted_class.strip() == "1 PD's":
-    st.warning("⚠️ This clock drawing may show signs of Parkinson's disease. Please consult a healthcare professional.")
-elif predicted_class.strip() == "2 Alzheimer's":
-    st.warning("⚠️ This clock drawing may show signs of Alzheimer's disease. Please consult a healthcare professional.")
-else:
-    st.success("✅ This clock drawing appears typical.")
+        st.warning("⚠️ This clock drawing may show signs of Parkinson's disease. Please consult a healthcare professional.")
+    elif predicted_class.strip() == "2 Alzheimer's":
+        st.warning("⚠️ This clock drawing may show signs of Alzheimer's disease. Please consult a healthcare professional.")
+    else:
+        st.success("✅ This clock drawing appears typical.")
 
 st.markdown("---")
 st.caption("Disclaimer: This tool is experimental and not a replacement for medical advice.")
+
 
 
 
