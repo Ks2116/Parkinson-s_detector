@@ -70,20 +70,23 @@ if uploaded_file is not None:
     st.write("Classifying...")
 
     predicted_class, confidence_score = predict_parkinsons(image, model, class_names)
-    
+
     st.success(f"**Prediction:** {predicted_class}")
     st.info(f"**Confidence:** {confidence_score:.2f}")
-if predicted_class.strip() == "1 PD's":
-    st.warning("⚠️ This clock drawing may show signs of Parkinson's disease. Please consult a healthcare professional.")
-elif predicted_class.strip() == "2 Alzheimer's":
-    st.warning("⚠️ This clock drawing may show signs of Alzheimer's disease. Please consult a healthcare professional.")
-elif predicted_class.strip() == "3 Invalid Input":
-    st.error("❌ The uploaded image doesn't appear to be a valid clock drawing. Please try again with a proper clock drawing.")
-else:
-    st.success("✅ This clock drawing appears typical.")
+
+    # Conditional messaging based on the prediction
+    if predicted_class.strip() == "1 PD's":
+        st.warning("⚠️ This clock drawing may show signs of Parkinson's disease. Please consult a healthcare professional.")
+    elif predicted_class.strip() == "2 Alzheimer's":
+        st.warning("⚠️ This clock drawing may show signs of Alzheimer's disease. Please consult a healthcare professional.")
+    elif predicted_class.strip() == "3 Invalid Input":
+        st.error("❌ The uploaded image doesn't appear to be a valid clock drawing. Please try again with a proper clock drawing.")
+    else:
+        st.success("✅ This clock drawing appears typical.")
 
 st.markdown("---")
 st.caption("Disclaimer: This tool is experimental and not a replacement for medical advice.")
+
 
 
 
