@@ -69,6 +69,9 @@ Please follow these guidelines to ensure accurate predictions:
 - Keep the drawing as neat and clear as possible.
 - If drawn on paper, take a well-lit photo with **no shadows or blur** before uploading.
 """)
+# --- Example Clock Drawing ---
+st.markdown("### 🧭 Example Clock Drawing")
+st.image("clock_example.png", caption="Example of a correctly drawn clock (7 o'clock)", use_column_width=True)
 
 st.markdown("---")
 model = load_model()
