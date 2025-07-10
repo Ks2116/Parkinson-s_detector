@@ -98,6 +98,26 @@ if uploaded_file is not None:
         st.success("✅ This clock drawing appears typical.")
 
 st.markdown("---")
+with st.expander("⚙️ How This App Works", expanded=False):
+    st.markdown("""
+    🖼️ **1. Upload Clock Drawing**  
+    You provide a clock drawing image.
+
+    🧹 **2. Preprocessing**  
+    The image is resized and cleaned for analysis.
+
+    🧠 **3. ML Prediction**  
+    A trained model checks for signs of:
+    - Parkinson's disease
+    - Alzheimer's disease
+    - Invalid input
+
+    📊 **4. Result Shown**  
+    You get a prediction with a confidence score.
+
+    > 🚨 *This tool is experimental and not a medical diagnosis.*
+    """)
+
 st.caption("Disclaimer: This tool is experimental and not a replacement for medical advice.")
 
 
