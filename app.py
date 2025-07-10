@@ -100,23 +100,32 @@ if uploaded_file is not None:
 st.markdown("---")
 with st.expander("⚙️ How This App Works", expanded=False):
     st.markdown("""
-    🖼️ **1. Upload Clock Drawing**  
-    You provide a clock drawing image.
+<style>
+ul.custom-expander li {
+    margin-bottom: 0.4rem;
+}
+</style>
 
-    🧹 **2. Preprocessing**  
-    The image is resized and cleaned for analysis.
+🧠 **Step-by-step Process:**
 
-    🧠 **3. ML Prediction**  
-    A trained model checks for signs of:
-    - Parkinson's disease
-    - Alzheimer's disease
-    - Invalid input
+- 🖼️ **Upload Clock Drawing**  
+  Submit a hand-drawn clock image for analysis.
 
-    📊 **4. Result Shown**  
-    You get a prediction with a confidence score.
+- 🧹 **Preprocessing**  
+  Image is cleaned and resized for model input.
 
-    > 🚨 *This tool is experimental and not a medical diagnosis.*
-    """)
+- 🤖 **Prediction**  
+  Our AI model checks for:
+  • Parkinson’s  
+  • Alzheimer’s  
+  • Invalid Input
+
+- 📊 **Get Results**  
+  You'll see a prediction label and confidence score.
+
+> ⚠️ *This tool is experimental. For professional evaluation, consult a healthcare provider.*
+""", unsafe_allow_html=True)
+
 
 st.caption("Disclaimer: This tool is experimental and not a replacement for medical advice.")
 
