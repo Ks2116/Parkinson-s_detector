@@ -70,9 +70,18 @@ Please follow these guidelines to ensure accurate predictions:
 - If drawn on paper, take a well-lit photo with **no shadows or blur** before uploading.
 """)
 
-# --- Example Clock Drawing ---
+import streamlit as st
+from PIL import Image
+
 st.markdown("### 🧭 Example Clock Drawing")
-st.image("clock_example.png", caption="Example of a correctly drawn clock (7 o'clock)", width=350)
+
+img = Image.open("clock_example.png")
+
+# Use Streamlit's columns to center image
+col1, col2, col3 = st.columns([1, 2, 1])
+with col2:
+    st.image(img, caption="Example of a correctly drawn clock (7 o'clock)", width=250)
+
 
 
 st.markdown("---")
