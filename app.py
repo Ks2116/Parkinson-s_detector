@@ -57,7 +57,20 @@ st.set_page_config(page_title="Parkinson's Detector (Clock Test)", layout="cente
 st.title("Parkinson's Disease Detector (Clock Test)")
 st.write("Upload an image of a clock drawing to get a prediction.")
 st.markdown("---")
+# Drawing instructions (inserted section)
+st.markdown("### 🖊️ Drawing Instructions")
+st.write("""
+You may draw the clock using **pen on paper** or **digitally (e.g., on an iPad or tablet)**.
 
+Please follow these guidelines to ensure accurate predictions:
+- Draw an **analog clock** showing the time **10 past 11**.
+- Include **all numbers** from 1 to 12 on the clock face.
+- Ensure the **hour and minute hands** are clearly visible.
+- Keep the drawing as neat and clear as possible.
+- If drawn on paper, take a well-lit photo with **no shadows or blur** before uploading.
+""")
+
+st.markdown("---")
 model = load_model()
 class_names = load_labels()
 if model is None or class_names is None:
