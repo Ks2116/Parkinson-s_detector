@@ -63,7 +63,7 @@ st.write("""
 You may draw the clock using **pen on paper** or **digitally (e.g., on an iPad or tablet)**.
 
 Please follow these guidelines to ensure accurate predictions:
-- Draw an **analog clock** showing the time **10 past 11**.
+- Draw an **analog clock** showing the time **7 o'clock**.
 - Include **all numbers** from 1 to 12 on the clock face.
 - Ensure the **hour and minute hands** are clearly visible.
 - Keep the drawing as neat and clear as possible.
