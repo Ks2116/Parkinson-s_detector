@@ -71,18 +71,8 @@ Please follow these guidelines to ensure accurate predictions:
 """)
 
 # --- Example Clock Drawing ---
-st.markdown("### 🧭 Example Clock Drawing", unsafe_allow_html=True)
-
-st.markdown(
-    """
-    <div style='text-align: center;'>
-        <img src='clock_example.png' width='250'/>
-        <p style='font-size: 0.9em; color: gray;'>Example of a correctly drawn clock (7 o'clock)</p>
-    </div>
-    """,
-    unsafe_allow_html=True
-)
-
+st.markdown("### 🧭 Example Clock Drawing")
+st.image("clock_example.png", caption="Example of a correctly drawn clock (7 o'clock)", width=350)
 
 
 st.markdown("---")
