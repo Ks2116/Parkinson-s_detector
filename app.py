@@ -102,11 +102,11 @@ if uploaded_file is not None:
     st.info(f"**Confidence:** {confidence_score:.2f}")
 
     # Conditional messaging based on the prediction
-    if predicted_class.strip() == "1 May have Parkinson's Disease":
+    if predicted_class.strip() == "May have Parkinson's Disease":
         st.warning("⚠️ This clock drawing may show signs of Parkinson's disease. Please consult a healthcare professional.")
-    elif predicted_class.strip() == "2 May have Alzheimer's Disease":
+    elif predicted_class.strip() == "May have Alzheimer's Disease":
         st.warning("⚠️ This clock drawing may show signs of Alzheimer's disease. Please consult a healthcare professional.")
-    elif predicted_class.strip() == "3 Invalid Input":
+    elif predicted_class.strip() == "Invalid Input":
         st.error("❌ The uploaded image doesn't appear to be a valid clock drawing. Please try again with a proper clock drawing.")
     else:
         st.success("✅ This clock drawing appears typical.")
