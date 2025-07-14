@@ -1,5 +1,5 @@
-0 Does not appear to have Parkinson's or Alzheimer's Disease
-1 May have Parkinson's Disease
-2 May have Alzheimer's Disease
-3 Invalid Input
+Does not appear to have Parkinson's or Alzheimer's Disease
+May have Parkinson's Disease
+May have Alzheimer's Disease
+Invalid Input
 
