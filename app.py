@@ -120,21 +120,21 @@ ul.custom-expander li {
 }
 </style>
 
-🧠 **Step-by-step Process:**
+ **Step-by-step Process:**
 
-- 🖼️ **Upload Clock Drawing**  
+-  **Upload Clock Drawing**  
   Submit a hand-drawn clock image for analysis.
 
-- 🧹 **Preprocessing**  
+-  **Preprocessing**  
   Image is cleaned and resized for model input.
 
-- 🤖 **Prediction**  
+- **Prediction**  
   Our AI model checks for:
   • Parkinson’s  
   • Alzheimer’s  
   • Invalid Input
 
-- 📊 **Get Results**  
+- **Get Results**  
   You'll see a prediction label and confidence score.
 
 > ⚠️ *This tool is experimental. For professional evaluation, consult a healthcare provider.*
