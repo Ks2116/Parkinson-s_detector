@@ -155,9 +155,7 @@ To ensure accurate predictions, please follow these instructions:
 st.markdown("### Example Clock Drawing")
 try:
     img = Image.open("clock_example.png")
-    col1, col2, col3 = st.columns([1, 2, 1])
-    with col2:
-        st.image(img, caption="Sample Clock Drawing (7 o'clock)", width=250)
+    st.image(img, caption="Sample Clock Drawing (7 o'clock)", width=220)
 except:
     st.warning("Example image not found. Please place 'clock_example.png' in the same folder.")
 
@@ -166,8 +164,8 @@ st.markdown('</div>', unsafe_allow_html=True)
 # --- Upload Section ---
 st.markdown('<div class="upload-section">', unsafe_allow_html=True)
 st.markdown("### Upload Your Clock Drawing")
-st.markdown("Please upload a clear photo of your 7 o'clock clock drawing. You may drag and drop or browse your files below.")
-uploaded_file = st.file_uploader("Upload Image", type=["jpg", "jpeg", "png"])
+st.markdown("<p style='font-size: 1rem; margin-bottom: 0.8rem;'>Please upload a clear photo of your 7 o'clock clock drawing. Drag and drop or browse files below.</p>", unsafe_allow_html=True)
+uploaded_file = st.file_uploader("", type=["jpg", "jpeg", "png"], label_visibility="collapsed")
 st.markdown('</div>', unsafe_allow_html=True)
 
 # --- Model and Labels ---
@@ -183,19 +181,15 @@ if uploaded_file is not None:
 
         st.markdown('<div class="main-box">', unsafe_allow_html=True)
         st.markdown("### Uploaded Image")
-        col1, col2, col3 = st.columns([1, 2, 1])
-        with col2:
-            st.image(image, caption="Uploaded Clock Drawing", use_column_width=True)
+        st.image(image, caption="Uploaded Clock Drawing", width=300)
 
-        # --- Spinner with loading animation ---
         with st.spinner("Analyzing image..."):
-            time.sleep(2)  # Simulate processing time
+            time.sleep(2)
             predicted_class, confidence_score = predict_parkinsons(image, model, class_names)
 
         st.success(f"**Prediction:** {predicted_class}")
         st.info(f"**The system is {confidence_score:.0%} confident in this result.**")
 
-        # --- Result Feedback ---
         if predicted_class.strip() == "May have Parkinson's Disease":
             st.warning("This drawing may show signs of Parkinson's disease. Please consult a medical professional.")
         elif predicted_class.strip() == "May have Alzheimer's Disease":
@@ -237,3 +231,4 @@ with st.expander("How This App Works", expanded=False):
 
 # --- Disclaimer ---
 st.markdown("<p class='disclaimer'>Disclaimer: This tool is for educational and research purposes only and does not substitute professional medical advice.</p>", unsafe_allow_html=True)
+
