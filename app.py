@@ -20,7 +20,7 @@ st.markdown("""
  background: linear-gradient(200deg, #1995ad, #a1d6e2, f1f1f2);
  background-attachment: fixed;
     font-family: 'Segoe UI', sans-serif;
-    color: #2c3e50;
+    color: #edf4f2;
     padding-bottom: 5rem;
 }
 
