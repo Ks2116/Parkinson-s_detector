@@ -30,7 +30,7 @@ st.markdown("""
 
 .stApp {
     background: linear-gradient(200deg, #ffefef, #ffe2e2, #ffe3c6, #ffeac2, #ffefdc);
-    background-size: 300% 300%;  /* important for animation */
+    background-size: 300% 300%;
     background-attachment: fixed;
     animation: slowGradientShift 40s ease infinite;
     font-family: 'Segoe UI', sans-serif;
