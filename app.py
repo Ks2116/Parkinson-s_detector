@@ -136,13 +136,13 @@ def predict_parkinsons(image, model, class_names):
 st.markdown('<div class="banner"><h1>Parkinson\'s Disease Detector</h1><p>AI-powered tool for analyzing clock drawings</p></div>', unsafe_allow_html=True)
 
 # --- Clock Drawing Test ---
-st.markdown('<div class="card">', unsafe_allow_html=True)
+
 st.subheader("Clock Drawing Test")
 st.write("Upload a clock drawing to receive a prediction using our trained image classification model.")
-st.markdown('</div>', unsafe_allow_html=True)
+
 
 # --- Drawing Instructions ---
-st.markdown('<div class="card">', unsafe_allow_html=True)
+
 st.markdown("### Drawing Instructions")
 st.write("""
 To ensure accurate predictions, please follow these instructions:
@@ -153,24 +153,24 @@ To ensure accurate predictions, please follow these instructions:
 - Keep the drawing clean and centered.
 - If drawn on paper, take a well-lit photo with no shadows or blur.
 """)
-st.markdown('</div>', unsafe_allow_html=True)
+
 
 # --- Example Clock ---
-st.markdown('<div class="card">', unsafe_allow_html=True)
+
 st.markdown("### Example Clock Drawing")
 try:
     img = Image.open("clock_example.png")
     st.image(img, caption="Sample Clock Drawing (7 o'clock)", width=220)
 except:
     st.warning("Example image not found. Please place 'clock_example.png' in the same folder.")
-st.markdown('</div>', unsafe_allow_html=True)
+
 
 # --- Upload Drawing ---
-st.markdown('<div class="card">', unsafe_allow_html=True)
+
 st.markdown("### Upload Your Clock Drawing")
 st.write("Please upload a clear photo of your 7 o'clock clock drawing.")
 uploaded_file = st.file_uploader("Upload Image", type=["jpg", "jpeg", "png"])
-st.markdown('</div>', unsafe_allow_html=True)
+
 
 # --- Load Model & Labels ---
 model = load_model()
@@ -183,7 +183,7 @@ if uploaded_file is not None:
     try:
         image = Image.open(uploaded_file)
 
-        st.markdown('<div class="card">', unsafe_allow_html=True)
+   
         st.markdown("### Uploaded Image")
         st.image(image, caption="Uploaded Clock Drawing", width=300)
 
@@ -202,8 +202,6 @@ if uploaded_file is not None:
             st.error("The uploaded image is not a valid clock drawing. Please upload a proper one.")
         else:
             st.success("This clock drawing appears typical.")
-
-        st.markdown('</div>', unsafe_allow_html=True)
 
     except Exception as e:
         st.error(f"Failed to open image: {e}")
