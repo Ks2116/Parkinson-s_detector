@@ -16,13 +16,30 @@ st.set_page_config(page_title="Parkinson's Clock Test", layout="centered")
 # --- Subtle Professional Styling ---
 st.markdown("""
 <style>
+@keyframes slowGradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 .stApp {
- background: linear-gradient(200deg, #ffefef, #ffe2e2, #ffe3c6, #ffeac2, #ffefdc);
- background-attachment: fixed;
+    background: linear-gradient(200deg, #ffefef, #ffe2e2, #ffe3c6, #ffeac2, #ffefdc);
+    background-size: 300% 300%;  /* important for animation */
+    background-attachment: fixed;
+    animation: slowGradientShift 40s ease infinite;
     font-family: 'Segoe UI', sans-serif;
     color: #edf4f2;
     padding-bottom: 5rem;
 }
+</style>
+""", unsafe_allow_html=True)
+
 
 .card {
     background-color: white;
