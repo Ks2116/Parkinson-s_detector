@@ -13,29 +13,22 @@ IMAGE_SIZE = (224, 224)
 # --- Page Settings ---
 st.set_page_config(page_title="Parkinson's Clock Test", layout="centered")
 
-# --- Animated Dark Background CSS ---
+# --- Subtle Professional Styling ---
 st.markdown("""
 <style>
-@keyframes elegantWave {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
 .stApp {
-    background: linear-gradient(-45deg, #283e51, #485563, #2c3e50, #1c2833);
-    background-size: 600% 600%;
-    animation: elegantWave 25s ease infinite;
+    background: linear-gradient(145deg, #f3f6f9, #e8edf2);
+    background-attachment: fixed;
     font-family: 'Segoe UI', sans-serif;
+    color: #2c3e50;
     padding-bottom: 5rem;
-    color: #ecf0f1;
 }
 
 .card {
-    background-color: rgba(44, 62, 80, 0.85);
+    background-color: white;
     padding: 2rem;
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
     margin-bottom: 2rem;
 }
 
@@ -45,7 +38,7 @@ st.markdown("""
     text-align: center;
     padding: 2.5rem 1rem;
     border-radius: 16px;
-    box-shadow: 0 12px 24px rgba(0,0,0,0.9);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.12);
     margin-bottom: 3rem;
 }
 
@@ -55,7 +48,7 @@ h1 {
     margin-bottom: 0.5rem;
 }
 h2, h3 {
-    color: #d0d7de;
+    color: #37474f;
     font-weight: 600;
     margin-top: 2rem;
 }
@@ -63,31 +56,30 @@ h2, h3 {
 p, li {
     font-size: 1.05rem;
     line-height: 1.6;
-    color: #ccd6f6;
+    color: #263238;
 }
 
 img {
     border-radius: 12px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.8);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
 }
 
 [data-testid="stFileUploader"] {
     border: 2px dashed #90caf9;
     border-radius: 12px;
     padding: 1.5rem;
-    background-color: rgba(255,255,255,0.1);
+    background-color: rgba(255,255,255,0.95);
     margin-bottom: 1.5rem;
-    color: #ecf0f1;
 }
 
 .disclaimer {
     font-size: 0.9rem;
-    color: #8892b0;
+    color: #607d8b;
     margin-top: 4rem;
     text-align: center;
 }
 </style>
-
+""", unsafe_allow_html=True)
 
 # --- Load Model ---
 @st.cache_resource
@@ -134,9 +126,6 @@ def predict_parkinsons(image, model, class_names):
 
 # --- Banner ---
 st.markdown('<div class="banner"><h1>Parkinson\'s Disease Detector</h1><p>AI-powered tool for analyzing clock drawings</p></div>', unsafe_allow_html=True)
-
-# --- Main Card Container ---
-st.markdown('<div class="card">', unsafe_allow_html=True)
 
 # --- Drawing Instructions ---
 st.markdown("### Drawing Instructions")
@@ -220,8 +209,6 @@ with st.expander("How This App Works", expanded=False):
 
 > Note: This tool is experimental and not a replacement for clinical diagnosis.
 """)
-
-st.markdown("</div>", unsafe_allow_html=True)
 
 # --- Disclaimer ---
 st.markdown("<p class='disclaimer'>Disclaimer: This tool is for educational and research purposes only and does not substitute professional medical advice.</p>", unsafe_allow_html=True)
