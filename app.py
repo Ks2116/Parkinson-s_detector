@@ -21,15 +21,6 @@ st.markdown("""
     font-family: 'Segoe UI', sans-serif;
     padding-bottom: 5rem;
 }
-.main-box {
-    background-color: #ffffff;
-    padding: 3rem 2.5rem;
-    border-radius: 20px;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
-    max-width: 880px;
-    margin: 4rem auto;
-    color: #2c3e50;
-}
 h1 {
     font-size: 2.5rem;
     font-weight: 700;
@@ -53,27 +44,6 @@ ul {
 }
 ul li {
     margin-bottom: 0.6rem;
-}
-.upload-section {
-    background: linear-gradient(to right, #e6f0fb, #f5faff);
-    padding: 2.5rem 1.5rem;
-    border: 2px dashed #3498db;
-    border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.05);
-    text-align: center;
-    max-width: 700px;
-    margin: 3rem auto 2rem auto;
-    transition: all 0.3s ease;
-}
-.upload-section:hover {
-    background: linear-gradient(to right, #d4eafd, #ebf7ff);
-    border-color: #1e6fd1;
-    box-shadow: 0 6px 18px rgba(0, 123, 255, 0.1);
-}
-.upload-section label {
-    font-size: 1.2rem !important;
-    font-weight: 600 !important;
-    color: #2c3e50 !important;
 }
 [data-testid="stNotification"] {
     font-size: 1.05rem;
@@ -135,8 +105,6 @@ def predict_parkinsons(image, model, class_names):
     return class_names[index], prediction[0][index]
 
 # --- Main Interface ---
-st.markdown('<div class="main-box">', unsafe_allow_html=True)
-
 st.title("Parkinson's Disease Detector")
 st.subheader("Clock Drawing Test")
 st.write("Upload a clock drawing to receive a prediction using our trained image classification model.")
@@ -159,27 +127,22 @@ try:
 except:
     st.warning("Example image not found. Please place 'clock_example.png' in the same folder.")
 
-st.markdown('</div>', unsafe_allow_html=True)
-
 # --- Upload Section ---
-st.markdown('<div class="upload-section">', unsafe_allow_html=True)
 st.markdown("### Upload Your Clock Drawing")
-st.markdown("<p style='font-size: 1rem; margin-bottom: 0.8rem;'>Please upload a clear photo of your 7 o'clock clock drawing. Drag and drop or browse files below.</p>", unsafe_allow_html=True)
-uploaded_file = st.file_uploader("", type=["jpg", "jpeg", "png"], label_visibility="collapsed")
-st.markdown('</div>', unsafe_allow_html=True)
+st.write("Please upload a clear photo of your 7 o'clock clock drawing.")
+uploaded_file = st.file_uploader("Upload Image", type=["jpg", "jpeg", "png"])
 
-# --- Model and Labels ---
+# --- Load Model & Labels ---
 model = load_model()
 class_names = load_labels()
 if model is None or class_names is None:
     st.stop()
 
-# --- Handle Upload ---
+# --- Handle Uploaded File ---
 if uploaded_file is not None:
     try:
         image = Image.open(uploaded_file)
 
-        st.markdown('<div class="main-box">', unsafe_allow_html=True)
         st.markdown("### Uploaded Image")
         st.image(image, caption="Uploaded Clock Drawing", width=300)
 
@@ -198,8 +161,6 @@ if uploaded_file is not None:
             st.error("The uploaded image is not a valid clock drawing. Please upload a proper one.")
         else:
             st.success("This clock drawing appears typical.")
-
-        st.markdown('</div>', unsafe_allow_html=True)
 
     except Exception as e:
         st.error(f"Failed to open image: {e}")
@@ -231,4 +192,3 @@ with st.expander("How This App Works", expanded=False):
 
 # --- Disclaimer ---
 st.markdown("<p class='disclaimer'>Disclaimer: This tool is for educational and research purposes only and does not substitute professional medical advice.</p>", unsafe_allow_html=True)
-
