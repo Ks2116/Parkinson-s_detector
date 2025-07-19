@@ -14,6 +14,7 @@ IMAGE_SIZE = (224, 224)
 st.set_page_config(page_title="Parkinson's Clock Test", layout="centered")
 
 # --- Custom CSS ---
+st.markdown("""
 <style>
 @keyframes elegantWave {
     0% { background-position: 0% 50%; }
@@ -29,31 +30,29 @@ st.set_page_config(page_title="Parkinson's Clock Test", layout="centered")
     padding-bottom: 5rem;
     color: #2c3e50;
 }
-</style>
 
-
-/* Fancy Card Box Styling */
+/* Card Styling */
 .card {
     background-color: rgba(255, 255, 255, 0.9);
     padding: 2rem;
     border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
     margin-bottom: 2rem;
 }
 
 .banner {
-    background: linear-gradient(135deg, #4fc3f7, #ba68c8);
+    background: linear-gradient(135deg, #4fc3f7, #7e57c2);
     color: white;
     text-align: center;
     padding: 2rem;
     border-radius: 20px;
-    box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.1);
     margin-bottom: 3rem;
 }
 
 h1 {
-    font-size: 2.7rem;
-    font-weight: 700;
+    font-size: 2.5rem;
+    font-weight: 600;
     color: #1a237e;
     text-align: center;
 }
@@ -77,7 +76,7 @@ ul li {
 
 img {
     border-radius: 12px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
 }
 
 [data-testid="stFileUploader"] {
@@ -86,7 +85,7 @@ img {
     padding: 1.5rem;
     background-color: rgba(255,255,255,0.85);
     margin-bottom: 1rem;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
 }
 
 .disclaimer {
@@ -142,16 +141,13 @@ def predict_parkinsons(image, model, class_names):
     return class_names[index], prediction[0][index]
 
 # --- Banner ---
-st.markdown('<div class="banner"><h1>Parkinson\'s Disease Detector</h1><p>AI-powered tool for analyzing clock drawings</p></div>', unsafe_allow_html=True)
+st.markdown('<div class="banner"><h1>Parkinson\'s Disease Detector</h1><p>AI-powered analysis of clock drawings</p></div>', unsafe_allow_html=True)
 
 # --- Clock Drawing Test ---
-
 st.subheader("Clock Drawing Test")
 st.write("Upload a clock drawing to receive a prediction using our trained image classification model.")
 
-
 # --- Drawing Instructions ---
-
 st.markdown("### Drawing Instructions")
 st.write("""
 To ensure accurate predictions, please follow these instructions:
@@ -163,9 +159,7 @@ To ensure accurate predictions, please follow these instructions:
 - If drawn on paper, take a well-lit photo with no shadows or blur.
 """)
 
-
 # --- Example Clock ---
-
 st.markdown("### Example Clock Drawing")
 try:
     img = Image.open("clock_example.png")
@@ -173,13 +167,10 @@ try:
 except:
     st.warning("Example image not found. Please place 'clock_example.png' in the same folder.")
 
-
 # --- Upload Drawing ---
-
 st.markdown("### Upload Your Clock Drawing")
 st.write("Please upload a clear photo of your 7 o'clock clock drawing.")
 uploaded_file = st.file_uploader("Upload Image", type=["jpg", "jpeg", "png"])
-
 
 # --- Load Model & Labels ---
 model = load_model()
@@ -191,8 +182,6 @@ if model is None or class_names is None:
 if uploaded_file is not None:
     try:
         image = Image.open(uploaded_file)
-
-   
         st.markdown("### Uploaded Image")
         st.image(image, caption="Uploaded Clock Drawing", width=300)
 
