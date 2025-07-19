@@ -87,7 +87,7 @@ img {
     text-align: center;
 }
 </style>
-""", unsafe_allow_html=True)
+
 
 # --- Load Model ---
 @st.cache_resource
