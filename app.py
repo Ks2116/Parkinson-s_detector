@@ -54,6 +54,7 @@ h1 {
     font-size: 2.6rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
+    color: #cae4db
 }
 h2, h3 {
     color: #37474f;
