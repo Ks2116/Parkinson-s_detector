@@ -13,55 +13,9 @@ IMAGE_SIZE = (224, 224)
 # --- Page Settings ---
 st.set_page_config(page_title="Parkinson's Clock Test", layout="centered")
 
-# --- Custom CSS ---
-st.markdown("""
-<style>
-.stApp {
-    background: linear-gradient(120deg, #f8fbff 0%, #ecf3f9 100%);
-    font-family: 'Segoe UI', sans-serif;
-    padding-bottom: 5rem;
-}
-h1 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 1.2rem;
-    color: #1a2b3c;
-    text-align: center;
-}
-h2, h3 {
-    color: #2c3e50;
-    margin-top: 2rem;
-    font-weight: 600;
-}
-p, li {
-    font-size: 1.05rem;
-    line-height: 1.6;
-    color: #34495e;
-}
-ul {
-    padding-left: 1.2rem;
-    margin-top: 0.5rem;
-}
-ul li {
-    margin-bottom: 0.6rem;
-}
-[data-testid="stNotification"] {
-    font-size: 1.05rem;
-}
-img {
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-}
-.disclaimer {
-    font-size: 0.9rem;
-    color: #7f8c8d;
-    margin-top: 4rem;
-    text-align: center;
-}
 # --- Elegant Custom CSS ---
 st.markdown("""
 <style>
-/* Overall App Styling */
 .stApp {
     background: linear-gradient(135deg, #e3f2fd 0%, #f8f9fa 100%);
     font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
@@ -69,7 +23,6 @@ st.markdown("""
     color: #2c3e50;
 }
 
-/* Titles and Headers */
 h1 {
     font-size: 2.8rem;
     font-weight: 800;
@@ -82,8 +35,6 @@ h2, h3 {
     margin-top: 2rem;
     font-weight: 600;
 }
-
-/* Text and Lists */
 p, li {
     font-size: 1.08rem;
     line-height: 1.7;
@@ -97,7 +48,6 @@ ul li {
     margin-bottom: 0.6rem;
 }
 
-/* Upload Box */
 section[data-testid="stFileUploader"] > div {
     background: #f0f8ff;
     border: 2px dashed #4682b4;
@@ -112,37 +62,67 @@ section[data-testid="stFileUploader"] > div:hover {
     border-color: #1e6fd1;
 }
 
-/* Images */
 img {
     border-radius: 10px;
     border: 1px solid #cfd8dc;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 
-/* Results Section */
 .stAlert {
     border-radius: 10px !important;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
     padding: 1.2rem !important;
 }
 
-/* Expander */
 .streamlit-expanderHeader {
     font-size: 1.15rem;
     font-weight: 600;
     color: #2c3e50;
 }
 
-/* Disclaimer */
 .disclaimer {
     font-size: 0.92rem;
     color: #6c757d;
     margin-top: 4rem;
     text-align: center;
 }
+.card {
+    background-color: #ffffff;
+    border-radius: 18px;
+    padding: 2rem;
+    margin: 2rem auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    max-width: 800px;
+}
 </style>
 """, unsafe_allow_html=True)
 
+# --- Load Model ---
+@st.cache_resource
+def load_model():
+    if not os.path.exists(MODEL_PATH):
+        st.error(f"Model file not found: {MODEL_PATH}")
+        return None
+    try:
+        return keras.models.load_model(MODEL_PATH, compile=False)
+    except Exception as e:
+        st.error(f"Error loading model: {e}")
+        return None
+
+# --- Load Labels ---
+@st.cache_data
+def load_labels():
+    if not os.path.exists(LABELS_PATH):
+        st.error(f"Labels file not found: {LABELS_PATH}")
+        return None
+    try:
+        with open(LABELS_PATH, "r") as f:
+            return [line.strip() for line in f.readlines()]
+    except Exception as e:
+        st.error(f"Error loading labels: {e}")
+        return None
 
 # --- Preprocess Image ---
 def preprocess_image(image):
@@ -162,33 +142,41 @@ def predict_parkinsons(image, model, class_names):
     index = np.argmax(prediction)
     return class_names[index], prediction[0][index]
 
-# --- Main Interface ---
+# --- Interface Content ---
 st.title("Parkinson's Disease Detector")
 st.subheader("Clock Drawing Test")
-st.write("Upload a clock drawing to receive a prediction using our trained image classification model.")
 
-st.markdown("### Drawing Instructions")
-st.write("""
-To ensure accurate predictions, please follow these instructions:
+with st.container():
+    st.markdown('<div class="card">', unsafe_allow_html=True)
 
-- Draw an **analog clock** showing the time **7 o'clock**.
-- Include **all numbers** from 1 to 12.
-- Make sure the **hour and minute hands** are clear.
-- Keep the drawing clean and centered.
-- If drawn on paper, take a well-lit photo with no shadows or blur.
-""")
+    st.write("Upload a clock drawing to receive a prediction using our trained image classification model.")
 
-st.markdown("### Example Clock Drawing")
-try:
-    img = Image.open("clock_example.png")
-    st.image(img, caption="Sample Clock Drawing (7 o'clock)", width=220)
-except:
-    st.warning("Example image not found. Please place 'clock_example.png' in the same folder.")
+    st.markdown("### Drawing Instructions")
+    st.write("""
+    To ensure accurate predictions, please follow these instructions:
+
+    - Draw an **analog clock** showing the time **7 o'clock**.
+    - Include **all numbers** from 1 to 12.
+    - Make sure the **hour and minute hands** are clear.
+    - Keep the drawing clean and centered.
+    - If drawn on paper, take a well-lit photo with no shadows or blur.
+    """)
+
+    st.markdown("### Example Clock Drawing")
+    try:
+        img = Image.open("clock_example.png")
+        st.image(img, caption="Sample Clock Drawing (7 o'clock)", width=220)
+    except:
+        st.warning("Example image not found. Please place 'clock_example.png' in the same folder.")
+
+    st.markdown('</div>', unsafe_allow_html=True)
 
 # --- Upload Section ---
+st.markdown('<div class="card">', unsafe_allow_html=True)
 st.markdown("### Upload Your Clock Drawing")
 st.write("Please upload a clear photo of your 7 o'clock clock drawing.")
 uploaded_file = st.file_uploader("Upload Image", type=["jpg", "jpeg", "png"])
+st.markdown('</div>', unsafe_allow_html=True)
 
 # --- Load Model & Labels ---
 model = load_model()
@@ -196,11 +184,12 @@ class_names = load_labels()
 if model is None or class_names is None:
     st.stop()
 
-# --- Handle Uploaded File ---
+# --- Prediction Output ---
 if uploaded_file is not None:
     try:
         image = Image.open(uploaded_file)
 
+        st.markdown('<div class="card">', unsafe_allow_html=True)
         st.markdown("### Uploaded Image")
         st.image(image, caption="Uploaded Clock Drawing", width=300)
 
@@ -219,6 +208,8 @@ if uploaded_file is not None:
             st.error("The uploaded image is not a valid clock drawing. Please upload a proper one.")
         else:
             st.success("This clock drawing appears typical.")
+
+        st.markdown('</div>', unsafe_allow_html=True)
 
     except Exception as e:
         st.error(f"Failed to open image: {e}")
@@ -250,3 +241,4 @@ with st.expander("How This App Works", expanded=False):
 
 # --- Disclaimer ---
 st.markdown("<p class='disclaimer'>Disclaimer: This tool is for educational and research purposes only and does not substitute professional medical advice.</p>", unsafe_allow_html=True)
+
