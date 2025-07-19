@@ -156,4 +156,72 @@ try:
     img = Image.open("clock_example.png")
     st.image(img, caption="Sample Clock Drawing (7 o'clock)", width=220)
 except:
-    st.warning("Example image not found. Please place 'c
+    st.warning("Example image not found. Please place 'clock_example.png' in the same folder.")
+
+# --- Upload Drawing ---
+st.markdown("### Upload Your Clock Drawing")
+st.write("Please upload a clear photo of your 7 o'clock clock drawing.")
+uploaded_file = st.file_uploader("Upload Image", type=["jpg", "jpeg", "png"])
+
+# --- Load Model & Labels ---
+model = load_model()
+class_names = load_labels()
+if model is None or class_names is None:
+    st.stop()
+
+# --- Handle Uploaded File ---
+if uploaded_file is not None:
+    try:
+        image = Image.open(uploaded_file)
+
+        st.markdown("### Uploaded Image")
+        st.image(image, caption="Uploaded Clock Drawing", width=300)
+
+        with st.spinner("Analyzing image..."):
+            time.sleep(2)
+            predicted_class, confidence_score = predict_parkinsons(image, model, class_names)
+
+        st.success(f"**Prediction:** {predicted_class}")
+        st.info(f"**The system is {confidence_score:.0%} confident in this result.**")
+
+        if predicted_class.strip() == "May have Parkinson's Disease":
+            st.warning("This drawing may show signs of Parkinson's disease. Please consult a medical professional.")
+        elif predicted_class.strip() == "May have Alzheimer's Disease":
+            st.warning("This drawing may show signs of Alzheimer's disease. Consider consulting a doctor.")
+        elif predicted_class.strip() == "Invalid Input":
+            st.error("The uploaded image is not a valid clock drawing. Please upload a proper one.")
+        else:
+            st.success("This clock drawing appears typical.")
+
+    except Exception as e:
+        st.error(f"Failed to open image: {e}")
+
+# --- How It Works ---
+st.markdown("---")
+with st.expander("How This App Works", expanded=False):
+    st.markdown("""
+**Step-by-step Process:**
+
+- **Upload Clock Drawing**  
+  Submit a hand-drawn or digital clock image.
+
+- **Preprocessing**  
+  The image is resized and normalized.
+
+- **Prediction**  
+  Our model classifies the image as:
+    - May have Parkinson's Disease
+    - May have Alzheimer's Disease
+    - Typical
+    - Invalid Input
+
+- **Results**  
+  You’ll receive a prediction and a confidence score.
+
+> Note: This tool is experimental and not a replacement for clinical diagnosis.
+""")
+
+st.markdown("</div>", unsafe_allow_html=True)
+
+# --- Disclaimer ---
+st.markdown("<p class='disclaimer'>Disclaimer: This tool is for educational and research purposes only and does not substitute professional medical advice.</p>", unsafe_allow_html=True)
