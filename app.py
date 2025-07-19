@@ -28,7 +28,7 @@ st.markdown("""
     background-attachment: fixed;
     animation: slowGradientShift 4s ease infinite;
     font-family: 'Segoe UI', sans-serif;
-    color: #2c3e50;
+    color: #7a9d96;
     padding-bottom: 5rem;
 }
 
