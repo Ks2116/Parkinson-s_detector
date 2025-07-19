@@ -16,67 +16,65 @@ st.set_page_config(page_title="Parkinson's Clock Test", layout="centered")
 # --- Custom CSS ---
 st.markdown("""
 <style>
-body {
-    background: linear-gradient(145deg, #f0f4f8 0%, #dfe9f3 100%);
-    color: #2c3e50;
+.stApp {
+    background: linear-gradient(135deg, #e0f7fa 0%, #fbe9e7 100%);
     font-family: 'Segoe UI', sans-serif;
+    padding-bottom: 5rem;
+    color: #2c3e50;
 }
 
-.stApp {
-    background-color: transparent;
-    padding-bottom: 5rem;
+/* Fancy Card Box Styling */
+.card {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
 }
 
 h1 {
     font-size: 2.7rem;
     font-weight: 700;
-    margin-bottom: 1.2rem;
-    color: #2c3e50;
+    color: #1a237e;
     text-align: center;
 }
-
 h2, h3 {
-    color: #34495e;
-    margin-top: 2rem;
+    color: #37474f;
     font-weight: 600;
+    margin-top: 2rem;
 }
 
 p, li {
-    font-size: 1.1rem;
-    line-height: 1.7;
-    color: #2f3640;
-}
-
-ul {
-    padding-left: 1.3rem;
-    margin-top: 0.5rem;
-}
-
-ul li {
-    margin-bottom: 0.7rem;
-}
-
-[data-testid="stNotification"] {
     font-size: 1.05rem;
+    line-height: 1.6;
+    color: #263238;
+}
+ul {
+    padding-left: 1.2rem;
+}
+ul li {
+    margin-bottom: 0.6rem;
 }
 
 img {
     border-radius: 12px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-    margin-top: 1rem;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+[data-testid="stFileUploader"] {
+    border: 2px dashed #90caf9;
+    border-radius: 12px;
+    padding: 1.5rem;
+    background-color: rgba(255,255,255,0.85);
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
 .disclaimer {
     font-size: 0.9rem;
-    color: #7f8c8d;
+    color: #607d8b;
     margin-top: 4rem;
     text-align: center;
-}
-
-hr {
-    border: none;
-    border-top: 1px solid #ccc;
-    margin: 2rem 0;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -125,10 +123,13 @@ def predict_parkinsons(image, model, class_names):
     return class_names[index], prediction[0][index]
 
 # --- Main Interface ---
+st.markdown('<div class="card">', unsafe_allow_html=True)
 st.title("Parkinson's Disease Detector")
 st.subheader("Clock Drawing Test")
 st.write("Upload a clock drawing to receive a prediction using our trained image classification model.")
+st.markdown('</div>', unsafe_allow_html=True)
 
+st.markdown('<div class="card">', unsafe_allow_html=True)
 st.markdown("### Drawing Instructions")
 st.write("""
 To ensure accurate predictions, please follow these instructions:
@@ -139,18 +140,22 @@ To ensure accurate predictions, please follow these instructions:
 - Keep the drawing clean and centered.
 - If drawn on paper, take a well-lit photo with no shadows or blur.
 """)
+st.markdown('</div>', unsafe_allow_html=True)
 
+st.markdown('<div class="card">', unsafe_allow_html=True)
 st.markdown("### Example Clock Drawing")
 try:
     img = Image.open("clock_example.png")
     st.image(img, caption="Sample Clock Drawing (7 o'clock)", width=220)
 except:
     st.warning("Example image not found. Please place 'clock_example.png' in the same folder.")
+st.markdown('</div>', unsafe_allow_html=True)
 
-# --- Upload Section ---
+st.markdown('<div class="card">', unsafe_allow_html=True)
 st.markdown("### Upload Your Clock Drawing")
 st.write("Please upload a clear photo of your 7 o'clock clock drawing.")
 uploaded_file = st.file_uploader("Upload Image", type=["jpg", "jpeg", "png"])
+st.markdown('</div>', unsafe_allow_html=True)
 
 # --- Load Model & Labels ---
 model = load_model()
@@ -163,8 +168,10 @@ if uploaded_file is not None:
     try:
         image = Image.open(uploaded_file)
 
+        st.markdown('<div class="card">', unsafe_allow_html=True)
         st.markdown("### Uploaded Image")
         st.image(image, caption="Uploaded Clock Drawing", width=300)
+        st.markdown('</div>', unsafe_allow_html=True)
 
         with st.spinner("Analyzing image..."):
             time.sleep(2)
@@ -212,3 +219,4 @@ with st.expander("How This App Works", expanded=False):
 
 # --- Disclaimer ---
 st.markdown("<p class='disclaimer'>Disclaimer: This tool is for educational and research purposes only and does not substitute professional medical advice.</p>", unsafe_allow_html=True)
+
