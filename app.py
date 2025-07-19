@@ -58,33 +58,91 @@ img {
     margin-top: 4rem;
     text-align: center;
 }
+# --- Elegant Custom CSS ---
+st.markdown("""
+<style>
+/* Overall App Styling */
+.stApp {
+    background: linear-gradient(135deg, #e3f2fd 0%, #f8f9fa 100%);
+    font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+    padding-bottom: 5rem;
+    color: #2c3e50;
+}
+
+/* Titles and Headers */
+h1 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    margin-bottom: 1.2rem;
+    color: #1b2e40;
+    text-align: center;
+}
+h2, h3 {
+    color: #2d3e50;
+    margin-top: 2rem;
+    font-weight: 600;
+}
+
+/* Text and Lists */
+p, li {
+    font-size: 1.08rem;
+    line-height: 1.7;
+    color: #34495e;
+}
+ul {
+    padding-left: 1.5rem;
+    margin-top: 0.5rem;
+}
+ul li {
+    margin-bottom: 0.6rem;
+}
+
+/* Upload Box */
+section[data-testid="stFileUploader"] > div {
+    background: #f0f8ff;
+    border: 2px dashed #4682b4;
+    padding: 2rem;
+    border-radius: 14px;
+    text-align: center;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s ease;
+}
+section[data-testid="stFileUploader"] > div:hover {
+    background: #e6f3ff;
+    border-color: #1e6fd1;
+}
+
+/* Images */
+img {
+    border-radius: 10px;
+    border: 1px solid #cfd8dc;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* Results Section */
+.stAlert {
+    border-radius: 10px !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    padding: 1.2rem !important;
+}
+
+/* Expander */
+.streamlit-expanderHeader {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+/* Disclaimer */
+.disclaimer {
+    font-size: 0.92rem;
+    color: #6c757d;
+    margin-top: 4rem;
+    text-align: center;
+}
 </style>
 """, unsafe_allow_html=True)
 
-# --- Load Model ---
-@st.cache_resource
-def load_model():
-    if not os.path.exists(MODEL_PATH):
-        st.error(f"Model file not found: {MODEL_PATH}")
-        return None
-    try:
-        return keras.models.load_model(MODEL_PATH, compile=False)
-    except Exception as e:
-        st.error(f"Error loading model: {e}")
-        return None
-
-# --- Load Labels ---
-@st.cache_data
-def load_labels():
-    if not os.path.exists(LABELS_PATH):
-        st.error(f"Labels file not found: {LABELS_PATH}")
-        return None
-    try:
-        with open(LABELS_PATH, "r") as f:
-            return [line.strip() for line in f.readlines()]
-    except Exception as e:
-        st.error(f"Error loading labels: {e}")
-        return None
 
 # --- Preprocess Image ---
 def preprocess_image(image):
