@@ -3,26 +3,24 @@ from PIL import Image, ImageOps
 import numpy as np
 import tensorflow.keras as keras
 import os
+import time
 
 # --- Configuration ---
 MODEL_PATH = "keras_model.h5"
 LABELS_PATH = "labels.txt"
 IMAGE_SIZE = (224, 224)
 
-# --- Page Config ---
+# --- Page Settings ---
 st.set_page_config(page_title="Parkinson's Clock Test", layout="centered")
 
 # --- Custom CSS ---
 st.markdown("""
 <style>
-/* Base background for entire app */
 .stApp {
     background: linear-gradient(120deg, #f8fbff 0%, #ecf3f9 100%);
     font-family: 'Segoe UI', sans-serif;
     padding-bottom: 5rem;
 }
-
-/* Main container box */
 .main-box {
     background-color: #ffffff;
     padding: 3rem 2.5rem;
@@ -32,8 +30,6 @@ st.markdown("""
     margin: 4rem auto;
     color: #2c3e50;
 }
-
-/* Headers */
 h1 {
     font-size: 2.5rem;
     font-weight: 700;
@@ -41,81 +37,73 @@ h1 {
     color: #1a2b3c;
     text-align: center;
 }
-
 h2, h3 {
     color: #2c3e50;
     margin-top: 2rem;
     font-weight: 600;
 }
-
-/* Paragraphs and lists */
 p, li {
     font-size: 1.05rem;
     line-height: 1.6;
     color: #34495e;
 }
-
 ul {
     padding-left: 1.2rem;
     margin-top: 0.5rem;
 }
-
 ul li {
     margin-bottom: 0.6rem;
 }
-
-/* Upload section styling */
 .upload-section {
-    background-color: #ffffff;
-    padding: 2rem;
+    background: linear-gradient(to right, #e6f0fb, #f5faff);
+    padding: 2.5rem 1.5rem;
     border: 2px dashed #3498db;
-    border-radius: 14px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.05);
     text-align: center;
     max-width: 700px;
     margin: 3rem auto 2rem auto;
+    transition: all 0.3s ease;
 }
-
-/* File upload text */
+.upload-section:hover {
+    background: linear-gradient(to right, #d4eafd, #ebf7ff);
+    border-color: #1e6fd1;
+    box-shadow: 0 6px 18px rgba(0, 123, 255, 0.1);
+}
 .upload-section label {
     font-size: 1.2rem !important;
     font-weight: 600 !important;
     color: #2c3e50 !important;
 }
-
-/* Disclaimer footer */
+[data-testid="stNotification"] {
+    font-size: 1.05rem;
+}
+img {
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+}
 .disclaimer {
     font-size: 0.9rem;
     color: #7f8c8d;
     margin-top: 4rem;
     text-align: center;
 }
-
-/* Info/Success/Warning box tweaks */
-[data-testid="stNotification"] {
-    font-size: 1.05rem;
-}
-
-/* Uploaded Image and Example Centering */
-img {
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-}
 </style>
 """, unsafe_allow_html=True)
 
-# --- Model and Label Loaders ---
+# --- Load Model ---
 @st.cache_resource
 def load_model():
     if not os.path.exists(MODEL_PATH):
         st.error(f"Model file not found: {MODEL_PATH}")
         return None
     try:
-        model = keras.models.load_model(MODEL_PATH, compile=False)
-        return model
+        return keras.models.load_model(MODEL_PATH, compile=False)
     except Exception as e:
         st.error(f"Error loading model: {e}")
         return None
 
+# --- Load Labels ---
 @st.cache_data
 def load_labels():
     if not os.path.exists(LABELS_PATH):
@@ -128,34 +116,31 @@ def load_labels():
         st.error(f"Error loading labels: {e}")
         return None
 
-# --- Image Preprocessing ---
+# --- Preprocess Image ---
 def preprocess_image(image):
     if image.mode != "RGB":
         image = image.convert("RGB")
     image = ImageOps.fit(image, IMAGE_SIZE, Image.Resampling.LANCZOS)
     image_array = np.asarray(image)
-    normalized_image_array = (image_array.astype(np.float32) / 127.0) - 1
-    return np.expand_dims(normalized_image_array, axis=0)
+    normalized = (image_array.astype(np.float32) / 127.0) - 1
+    return np.expand_dims(normalized, axis=0)
 
-# --- Prediction ---
+# --- Predict ---
 def predict_parkinsons(image, model, class_names):
     if model is None:
         return "Error: Model not loaded", 0.0
-    preprocessed_image = preprocess_image(image)
-    prediction = model.predict(preprocessed_image)
+    input_image = preprocess_image(image)
+    prediction = model.predict(input_image)
     index = np.argmax(prediction)
     return class_names[index], prediction[0][index]
 
-# --- Main UI Content ---
+# --- Main Interface ---
 st.markdown('<div class="main-box">', unsafe_allow_html=True)
 
-# Title Section
-st.markdown("##", unsafe_allow_html=True)
 st.title("Parkinson's Disease Detector")
 st.subheader("Clock Drawing Test")
 st.write("Upload a clock drawing to receive a prediction using our trained image classification model.")
 
-# Drawing Instructions
 st.markdown("### Drawing Instructions")
 st.write("""
 To ensure accurate predictions, please follow these instructions:
@@ -167,53 +152,65 @@ To ensure accurate predictions, please follow these instructions:
 - If drawn on paper, take a well-lit photo with no shadows or blur.
 """)
 
-# Example Drawing
 st.markdown("### Example Clock Drawing")
-img = Image.open("clock_example.png")
-col1, col2, col3 = st.columns([1, 2, 1])
-with col2:
-    st.image(img, caption="Sample Clock Drawing (7 o'clock)", width=250)
+try:
+    img = Image.open("clock_example.png")
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+        st.image(img, caption="Sample Clock Drawing (7 o'clock)", width=250)
+except:
+    st.warning("Example image not found. Please place 'clock_example.png' in the same folder.")
 
 st.markdown('</div>', unsafe_allow_html=True)
 
 # --- Upload Section ---
 st.markdown('<div class="upload-section">', unsafe_allow_html=True)
-uploaded_file = st.file_uploader("Upload Your Clock Drawing Here", type=["jpg", "jpeg", "png"])
+st.markdown("### Upload Your Clock Drawing")
+st.markdown("Please upload a clear photo of your 7 o'clock clock drawing. You may drag and drop or browse your files below.")
+uploaded_file = st.file_uploader("Upload Image", type=["jpg", "jpeg", "png"])
 st.markdown('</div>', unsafe_allow_html=True)
 
-# --- Load Model and Predict ---
+# --- Model and Labels ---
 model = load_model()
 class_names = load_labels()
 if model is None or class_names is None:
     st.stop()
 
+# --- Handle Upload ---
 if uploaded_file is not None:
-    image = Image.open(uploaded_file)
+    try:
+        image = Image.open(uploaded_file)
 
-    st.markdown('<div class="main-box">', unsafe_allow_html=True)
-    st.markdown("### Uploaded Image")
-    col1, col2, col3 = st.columns([1, 2, 1])
-    with col2:
-        st.image(image, caption="Uploaded Clock Drawing", use_column_width=True)
+        st.markdown('<div class="main-box">', unsafe_allow_html=True)
+        st.markdown("### Uploaded Image")
+        col1, col2, col3 = st.columns([1, 2, 1])
+        with col2:
+            st.image(image, caption="Uploaded Clock Drawing", use_column_width=True)
 
-    st.write("Classifying...")
+        # --- Spinner with loading animation ---
+        with st.spinner("Analyzing image..."):
+            time.sleep(2)  # Simulate processing time
+            predicted_class, confidence_score = predict_parkinsons(image, model, class_names)
 
-    predicted_class, confidence_score = predict_parkinsons(image, model, class_names)
+        st.success(f"**Prediction:** {predicted_class}")
+        st.info(f"**The system is {confidence_score:.0%} confident in this result.**")
 
-    st.success(f"**Prediction:** {predicted_class}")
-    st.info(f"**The system is {confidence_score:.0%} confident in this result.**")
+        # --- Result Feedback ---
+        if predicted_class.strip() == "May have Parkinson's Disease":
+            st.warning("This drawing may show signs of Parkinson's disease. Please consult a medical professional.")
+        elif predicted_class.strip() == "May have Alzheimer's Disease":
+            st.warning("This drawing may show signs of Alzheimer's disease. Consider consulting a doctor.")
+        elif predicted_class.strip() == "Invalid Input":
+            st.error("The uploaded image is not a valid clock drawing. Please upload a proper one.")
+        else:
+            st.success("This clock drawing appears typical.")
 
-    if predicted_class.strip() == "May have Parkinson's Disease":
-        st.warning("This drawing may show signs of Parkinson's disease. Please consult a medical professional.")
-    elif predicted_class.strip() == "May have Alzheimer's Disease":
-        st.warning("This drawing may show signs of Alzheimer's disease. Consider consulting a doctor.")
-    elif predicted_class.strip() == "Invalid Input":
-        st.error("The uploaded image is not a valid clock drawing. Please upload a proper one.")
-    else:
-        st.success("This clock drawing appears typical.")
-    st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
 
-# --- How It Works Section ---
+    except Exception as e:
+        st.error(f"Failed to open image: {e}")
+
+# --- How It Works ---
 st.markdown("---")
 with st.expander("How This App Works", expanded=False):
     st.markdown("""
@@ -223,29 +220,20 @@ with st.expander("How This App Works", expanded=False):
   Submit a hand-drawn or digital clock image.
 
 - **Preprocessing**  
-  The image is resized and prepared for prediction.
+  The image is resized and normalized.
 
 - **Prediction**  
-  The system classifies the image as:
-    - May have Parkinson's
-    - May have Alzheimer's
-    - Invalid input
+  Our model classifies the image as:
+    - May have Parkinson's Disease
+    - May have Alzheimer's Disease
     - Typical
+    - Invalid Input
 
 - **Results**  
-  You will receive a prediction along with the confidence score.
+  You’ll receive a prediction and a confidence score.
 
 > Note: This tool is experimental and not a replacement for clinical diagnosis.
 """)
 
 # --- Disclaimer ---
 st.markdown("<p class='disclaimer'>Disclaimer: This tool is for educational and research purposes only and does not substitute professional medical advice.</p>", unsafe_allow_html=True)
-
-
-
-
-
-
-
-
-
