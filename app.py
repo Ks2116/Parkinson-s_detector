@@ -14,6 +14,7 @@ IMAGE_SIZE = (224, 224)
 st.set_page_config(page_title="Parkinson's Clock Test", layout="centered")
 
 # --- Custom CSS ---
+st.markdown("""
 <style>
 @keyframes elegantWave {
     0% { background-position: 0% 50%; }
@@ -30,6 +31,8 @@ st.set_page_config(page_title="Parkinson's Clock Test", layout="centered")
     color: #2c3e50;
 }
 </style>
+""", unsafe_allow_html=True)
+
 
 
 /* Card Styling */
