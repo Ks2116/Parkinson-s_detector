@@ -17,7 +17,7 @@ st.set_page_config(page_title="Parkinson's Clock Test", layout="centered")
 st.markdown("""
 <style>
 .stApp {
- background: linear-gradient(150deg, #1995ad, #a1d6e2, f1f1f2);
+ background: linear-gradient(200deg, #1995ad, #a1d6e2, f1f1f2);
  background-attachment: fixed;
     font-family: 'Segoe UI', sans-serif;
     color: #2c3e50;
