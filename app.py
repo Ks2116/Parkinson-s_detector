@@ -9,59 +9,96 @@ MODEL_PATH = "keras_model.h5"
 LABELS_PATH = "labels.txt"
 IMAGE_SIZE = (224, 224)
 
-# --- Page Config & CSS Styling ---
+# --- Page Config ---
 st.set_page_config(page_title="Parkinson's Clock Test", layout="centered")
 
+# --- Custom CSS ---
 st.markdown("""
 <style>
-/* Global Background */
+/* Base background for entire app */
 .stApp {
-    background-color: #f4f6f9;
+    background: linear-gradient(120deg, #f8fbff 0%, #ecf3f9 100%);
+    font-family: 'Segoe UI', sans-serif;
+    padding-bottom: 5rem;
 }
 
-/* Container Box */
+/* Main container box */
 .main-box {
     background-color: #ffffff;
-    padding: 3rem 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    max-width: 800px;
-    margin: auto;
-    font-family: 'Segoe UI', sans-serif;
+    padding: 3rem 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
+    max-width: 880px;
+    margin: 4rem auto;
     color: #2c3e50;
 }
 
-/* Typography */
-h1, h2, h3 {
+/* Headers */
+h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1.2rem;
+    color: #1a2b3c;
+    text-align: center;
+}
+
+h2, h3 {
     color: #2c3e50;
+    margin-top: 2rem;
+    font-weight: 600;
+}
+
+/* Paragraphs and lists */
+p, li {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #34495e;
+}
+
+ul {
+    padding-left: 1.2rem;
+    margin-top: 0.5rem;
 }
 
 ul li {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.6rem;
 }
 
-/* Upload Section */
+/* Upload section styling */
 .upload-section {
     background-color: #ffffff;
-    padding: 1.5rem;
-    border: 2px dashed #2E86C1;
-    border-radius: 10px;
+    padding: 2rem;
+    border: 2px dashed #3498db;
+    border-radius: 14px;
     text-align: center;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    font-family: 'Segoe UI', sans-serif;
+    max-width: 700px;
+    margin: 3rem auto 2rem auto;
 }
 
+/* File upload text */
 .upload-section label {
     font-size: 1.2rem !important;
     font-weight: 600 !important;
     color: #2c3e50 !important;
 }
 
-/* Disclaimer */
+/* Disclaimer footer */
 .disclaimer {
-    font-size: 0.85rem;
-    color: #555;
+    font-size: 0.9rem;
+    color: #7f8c8d;
+    margin-top: 4rem;
+    text-align: center;
+}
+
+/* Info/Success/Warning box tweaks */
+[data-testid="stNotification"] {
+    font-size: 1.05rem;
+}
+
+/* Uploaded Image and Example Centering */
+img {
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
 }
 </style>
 """, unsafe_allow_html=True)
@@ -109,9 +146,11 @@ def predict_parkinsons(image, model, class_names):
     index = np.argmax(prediction)
     return class_names[index], prediction[0][index]
 
-# --- Main Content Box ---
+# --- Main UI Content ---
 st.markdown('<div class="main-box">', unsafe_allow_html=True)
 
+# Title Section
+st.markdown("##", unsafe_allow_html=True)
 st.title("Parkinson's Disease Detector")
 st.subheader("Clock Drawing Test")
 st.write("Upload a clock drawing to receive a prediction using our trained image classification model.")
@@ -151,6 +190,7 @@ if model is None or class_names is None:
 if uploaded_file is not None:
     image = Image.open(uploaded_file)
 
+    st.markdown('<div class="main-box">', unsafe_allow_html=True)
     st.markdown("### Uploaded Image")
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
@@ -161,9 +201,8 @@ if uploaded_file is not None:
     predicted_class, confidence_score = predict_parkinsons(image, model, class_names)
 
     st.success(f"**Prediction:** {predicted_class}")
-    st.info(f"**The system is {confidence_score:.0%} sure about this result.**")
+    st.info(f"**The system is {confidence_score:.0%} confident in this result.**")
 
-    # Conditional messaging
     if predicted_class.strip() == "May have Parkinson's Disease":
         st.warning("This drawing may show signs of Parkinson's disease. Please consult a medical professional.")
     elif predicted_class.strip() == "May have Alzheimer's Disease":
@@ -172,6 +211,7 @@ if uploaded_file is not None:
         st.error("The uploaded image is not a valid clock drawing. Please upload a proper one.")
     else:
         st.success("This clock drawing appears typical.")
+    st.markdown('</div>', unsafe_allow_html=True)
 
 # --- How It Works Section ---
 st.markdown("---")
@@ -193,13 +233,15 @@ with st.expander("How This App Works", expanded=False):
     - Typical
 
 - **Results**  
-  You will receive a prediction along with how sure the system is about it.
+  You will receive a prediction along with the confidence score.
 
 > Note: This tool is experimental and not a replacement for clinical diagnosis.
 """)
 
 # --- Disclaimer ---
 st.markdown("<p class='disclaimer'>Disclaimer: This tool is for educational and research purposes only and does not substitute professional medical advice.</p>", unsafe_allow_html=True)
+
+
 
 
 
