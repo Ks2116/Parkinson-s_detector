@@ -16,47 +16,67 @@ st.set_page_config(page_title="Parkinson's Clock Test", layout="centered")
 # --- Custom CSS ---
 st.markdown("""
 <style>
-.stApp {
-    background: linear-gradient(120deg, #f8fbff 0%, #ecf3f9 100%);
+body {
+    background: linear-gradient(145deg, #f0f4f8 0%, #dfe9f3 100%);
+    color: #2c3e50;
     font-family: 'Segoe UI', sans-serif;
+}
+
+.stApp {
+    background-color: transparent;
     padding-bottom: 5rem;
 }
+
 h1 {
-    font-size: 2.5rem;
+    font-size: 2.7rem;
     font-weight: 700;
     margin-bottom: 1.2rem;
-    color: #1a2b3c;
+    color: #2c3e50;
     text-align: center;
 }
+
 h2, h3 {
-    color: #2c3e50;
+    color: #34495e;
     margin-top: 2rem;
     font-weight: 600;
 }
+
 p, li {
-    font-size: 1.05rem;
-    line-height: 1.6;
-    color: #34495e;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #2f3640;
 }
+
 ul {
-    padding-left: 1.2rem;
+    padding-left: 1.3rem;
     margin-top: 0.5rem;
 }
+
 ul li {
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.7rem;
 }
+
 [data-testid="stNotification"] {
     font-size: 1.05rem;
 }
+
 img {
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    margin-top: 1rem;
 }
+
 .disclaimer {
     font-size: 0.9rem;
     color: #7f8c8d;
     margin-top: 4rem;
     text-align: center;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 2rem 0;
 }
 </style>
 """, unsafe_allow_html=True)
