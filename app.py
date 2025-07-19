@@ -14,14 +14,23 @@ IMAGE_SIZE = (224, 224)
 st.set_page_config(page_title="Parkinson's Clock Test", layout="centered")
 
 # --- Custom CSS ---
-st.markdown("""
 <style>
+@keyframes elegantWave {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
 .stApp {
-    background: linear-gradient(135deg, #e0f7fa 0%, #fbe9e7 100%);
+    background: linear-gradient(-45deg, #f3f8fa, #e6f0f3, #f0f4f8, #e3edf5);
+    background-size: 400% 400%;
+    animation: elegantWave 20s ease infinite;
     font-family: 'Segoe UI', sans-serif;
     padding-bottom: 5rem;
     color: #2c3e50;
 }
+</style>
+
 
 /* Fancy Card Box Styling */
 .card {
