@@ -109,7 +109,7 @@ def predict_parkinsons(image, model, class_names):
     index = np.argmax(prediction)
     return class_names[index], prediction[0][index]
 
-# --- Main Content ---
+# --- Main Content Box ---
 st.markdown('<div class="main-box">', unsafe_allow_html=True)
 
 st.title("Parkinson's Disease Detector")
@@ -142,7 +142,7 @@ st.markdown('<div class="upload-section">', unsafe_allow_html=True)
 uploaded_file = st.file_uploader("Upload Your Clock Drawing Here", type=["jpg", "jpeg", "png"])
 st.markdown('</div>', unsafe_allow_html=True)
 
-# --- Prediction Logic ---
+# --- Load Model and Predict ---
 model = load_model()
 class_names = load_labels()
 if model is None or class_names is None:
@@ -161,8 +161,7 @@ if uploaded_file is not None:
     predicted_class, confidence_score = predict_parkinsons(image, model, class_names)
 
     st.success(f"**Prediction:** {predicted_class}")
-   st.info(f"**The system is {confidence_score:.0%} sure about this result.**")
-
+    st.info(f"**The system is {confidence_score:.0%} sure about this result.**")
 
     # Conditional messaging
     if predicted_class.strip() == "May have Parkinson's Disease":
@@ -193,17 +192,14 @@ with st.expander("How This App Works", expanded=False):
     - Invalid input
     - Typical
 
-
 - **Results**  
   You will receive a prediction along with how sure the system is about it.
-
 
 > Note: This tool is experimental and not a replacement for clinical diagnosis.
 """)
 
 # --- Disclaimer ---
 st.markdown("<p class='disclaimer'>Disclaimer: This tool is for educational and research purposes only and does not substitute professional medical advice.</p>", unsafe_allow_html=True)
-
 
 
 
