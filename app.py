@@ -13,7 +13,7 @@ IMAGE_SIZE = (224, 224)
 # --- Page Settings ---
 st.set_page_config(page_title="Parkinson's Clock Test", layout="centered")
 
-# --- Custom CSS ---
+# --- Custom Animated Background CSS ---
 st.markdown("""
 <style>
 @keyframes elegantWave {
@@ -30,14 +30,9 @@ st.markdown("""
     padding-bottom: 5rem;
     color: #2c3e50;
 }
-</style>
-""", unsafe_allow_html=True)
 
-
-
-/* Card Styling */
 .card {
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.95);
     padding: 2rem;
     border-radius: 16px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
@@ -65,7 +60,6 @@ h2, h3 {
     font-weight: 600;
     margin-top: 2rem;
 }
-
 p, li {
     font-size: 1.05rem;
     line-height: 1.6;
@@ -77,12 +71,10 @@ ul {
 ul li {
     margin-bottom: 0.6rem;
 }
-
 img {
     border-radius: 12px;
     box-shadow: 0 6px 18px rgba(0,0,0,0.06);
 }
-
 [data-testid="stFileUploader"] {
     border: 2px dashed #90caf9;
     border-radius: 12px;
@@ -91,7 +83,6 @@ img {
     margin-bottom: 1rem;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
 }
-
 .disclaimer {
     font-size: 0.9rem;
     color: #607d8b;
