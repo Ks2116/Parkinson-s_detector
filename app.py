@@ -91,8 +91,36 @@ img {
     margin-top: 4rem;
     text-align: center;
 }
+
+/* Moving Wave Background */
+@keyframes waveAnimation {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.wave-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('https://svgshare.com/i/uY_.svg');
+  background-repeat: repeat-x;
+  background-size: 1000px 100%;
+  animation: waveAnimation 20s linear infinite;
+  opacity: 0.1;
+  z-index: -1;
+}
 </style>
 """, unsafe_allow_html=True)
+
+# Insert the moving wave background div right after your style block:
+st.markdown('<div class="wave-background"></div>', unsafe_allow_html=True)
+
 
 # --- Load Model ---
 @st.cache_resource
