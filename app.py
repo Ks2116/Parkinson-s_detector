@@ -116,16 +116,13 @@ img {
   margin-right: auto;
   padding-left: 1rem;
   padding-right: 1rem;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
   position: relative;
-  background-color: rgba(255, 255, 255, 0.97);
+  background-color: rgba(255, 255, 255, 0.85);
   border-radius: 16px;
-  border: 1px solid rgba(122, 157, 150, 0.3);
   box-shadow:
-    inset 15px 0 30px -10px rgba(122, 157, 150, 0.5),
-    inset -15px 0 30px -10px rgba(122, 157, 150, 0.5),
-    0 4px 30px rgba(0, 0, 0, 0.12);
+    inset 10px 0 20px -15px rgba(122, 157, 150, 0.4),
+    inset -10px 0 20px -15px rgba(122, 157, 150, 0.4);
+  /* Optional smooth fade on edges */
 }
 
 </style>
