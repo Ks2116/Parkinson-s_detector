@@ -13,6 +13,9 @@ IMAGE_SIZE = (224, 224)
 # --- Page Settings ---
 st.set_page_config(page_title="Parkinson's Clock Test", layout="centered")
 
+# --- Validation Disclaimer at the Top ---
+st.warning("⚠️ This application has not been clinically validated. Results must not be used as a substitute for a professional medical diagnosis.")
+
 # --- Subtle Professional Styling ---
 st.markdown("""
 <style>
@@ -217,6 +220,12 @@ with st.expander("How This App Works", expanded=False):
 
 > Note: This tool is experimental and not a replacement for clinical diagnosis.
 """)
+  
+# --- Learn More Section ---
+st.markdown("---")
+st.markdown("### Learn More About Parkinson's Disease")
+st.write("To understand more about Parkinson’s Disease, its symptoms, causes, and available treatments, read the World Health Organization's fact sheet:")
+st.markdown("[World Health Organization – Parkinson Disease (WHO)](https://www.who.int/news-room/fact-sheets/detail/parkinson-disease)")
 
 # --- Disclaimer ---
 st.markdown("<p class='disclaimer'>Disclaimer: This tool is for educational and research purposes only and does not substitute professional medical advice.</p>", unsafe_allow_html=True)
