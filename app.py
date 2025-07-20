@@ -176,6 +176,7 @@ To ensure accurate predictions, please follow these instructions:
 - If drawn on paper, take a well-lit photo with no shadows or blur.
 """)
 
+
 # --- Example Clock ---
 st.markdown("### Example Clock Drawing")
 try:
