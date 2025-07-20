@@ -25,18 +25,7 @@ st.markdown("""
   100% { background-position: 0% 50%; }
 }
 
-@media (prefers-color-scheme: dark) {
-  html, body, .stApp {
-    filter: invert(1) hue-rotate(180deg);
-    background-color: #ffffff;
-  }
-
-  img, video {
-    filter: invert(1) hue-rotate(180deg);
-  }
-}
-
-.stApp {
+html, body, .stApp {
     background: linear-gradient(200deg, #eef6fa, #f8fbfe, #e9f3f7, #f6f9fc);
     background-size: 300% 300%;
     background-attachment: fixed;
@@ -45,6 +34,11 @@ st.markdown("""
     color: #355c60;
     padding: 2rem 10vw 5rem 10vw;
     box-sizing: border-box;
+}
+
+html[data-theme="dark"], body[data-theme="dark"], .stApp[data-theme="dark"] {
+    background: #111111 !important;
+    color: #f0f0f0 !important;
 }
 
 .card {
