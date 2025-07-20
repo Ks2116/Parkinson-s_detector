@@ -45,7 +45,7 @@ st.markdown("""
 }
 
 .banner {
-    background: linear-gradient(135deg, #3b82f6, #60a5fa);
+    background: linear-gradient(135deg, #4a90e2, #70a7f7);
     color: white;
     text-align: center;
     padding: 2.5rem 1rem;
@@ -53,6 +53,7 @@ st.markdown("""
     box-shadow: 0 12px 24px rgba(0,0,0,0.12);
     margin-bottom: 3rem;
 }
+
 
 h1 {
     font-size: 2.6rem;
