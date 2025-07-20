@@ -29,7 +29,7 @@ st.markdown("""
     background: linear-gradient(200deg, #f9f8fd, #f6f5f3, #d7f2e3, #fdfcfb, #e2e1e0, #a8d5ba);
     background-size: 300% 300%;
     background-attachment: fixed;
-    animation: slowGradientShift 11s ease infinite;
+    animation: slowGradientShift 5s ease infinite;
     font-family: 'Segoe UI', sans-serif;
     color: #7a9d96;
     padding-bottom: 5rem;
