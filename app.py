@@ -190,10 +190,16 @@ try:
 except:
     st.warning("Example image not found. Please place 'clock_example.png' in the same folder.")
 
-# --- Upload Drawing ---
-st.markdown("### Upload Your Clock Drawing")
-st.write("Please upload a clear photo of your 7 o'clock clock drawing.")
-uploaded_file = st.file_uploader("**Upload Image**", type=["jpg", "jpeg", "png"])
+# --- Upload Drawing (Improved Card Style) ---
+st.markdown("""
+<div style='background-color: #ffffff; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.04); margin-top: 2rem;'>
+<h3 style='margin-top: 0;'>Upload Your Clock Drawing</h3>
+<p style='margin-bottom: 1rem;'>Please upload a clear photo of a hand-drawn analog clock showing <strong>7 o'clock</strong>. Ensure the image is well-lit and free of shadows.</p>
+</div>
+""", unsafe_allow_html=True)
+
+uploaded_file = st.file_uploader("Upload Image", type=["jpg", "jpeg", "png"])
+
 
 # --- Load Model & Labels ---
 model = load_model()
