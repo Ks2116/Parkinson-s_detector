@@ -19,6 +19,9 @@ st.warning("⚠️ This application has not been clinically validated. Results m
 # --- Subtle Professional Styling ---
 st.markdown("""
 <style>
+
+/* ------------------ Base Theme ------------------ */
+
 @keyframes slowGradientShift {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -26,25 +29,45 @@ st.markdown("""
 }
 
 .stApp {
-    background: transparent !important;  /* Make transparent so container bg shows */
+    background: linear-gradient(200deg, #eef6fa, #f8fbfe, #e9f3f7, #f6f9fc);
+    background-size: 300% 300%;
+    background-attachment: fixed;
+    animation: slowGradientShift 3s ease infinite;
+    background-color: #f9f9fb;
+    font-family: 'Segoe UI', sans-serif;
+    color: #355c60;
     padding-bottom: 5rem;
 }
+
+/* ------------------ Dark Mode Force Override ------------------ */
+@media (prefers-color-scheme: dark) {
+  html, body, .stApp {
+    filter: invert(1) hue-rotate(180deg);
+    background-color: #ffffff;
+  }
+
+  img, video {
+    filter: invert(1) hue-rotate(180deg); /* revert media */
+  }
+}
+
+/* ------------------ General UI Elements ------------------ */
 
 .card {
     background-color: white;
     padding: 2rem;
     border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
     margin-bottom: 2rem;
 }
 
 .banner {
-    background: linear-gradient(135deg, #7a9d96, #cae4db);
-    color: white;
+    background: linear-gradient(135deg, #91c8ea, #d4eefc);
+    color: #fff;
     text-align: center;
     padding: 2.5rem 1rem;
     border-radius: 16px;
-    box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.08);
     margin-bottom: 3rem;
 }
 
@@ -67,14 +90,14 @@ p, li {
 
 img {
     border-radius: 12px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.05);
 }
 
 [data-testid="stFileUploader"] {
     border: 2px dashed #90caf9;
     border-radius: 12px;
     padding: 1.5rem;
-    background-color: rgba(255,255,255,0.95);
+    background-color: rgba(255,255,255,0.97);
     margin-bottom: 1.5rem;
 }
 
@@ -85,7 +108,7 @@ img {
     text-align: center;
 }
 
-/* Moving Wave Background */
+/* ------------------ Moving Wave Background ------------------ */
 @keyframes waveAnimation {
   0% {
     background-position: 0 0;
@@ -105,32 +128,16 @@ img {
   background-repeat: repeat-x;
   background-size: 1000px 100%;
   animation: waveAnimation 20s linear infinite;
-  opacity: 0.1;
+  opacity: 0.06;
   z-index: -1;
 }
-
-/* Container to limit width and center content with subtle side shadows */
-.container {
-  max-width: 720px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  position: relative;
-  background-color: rgba(255, 255, 255, 0.85);
-  border-radius: 16px;
-  box-shadow:
-    inset 10px 0 20px -15px rgba(122, 157, 150, 0.4),
-    inset -10px 0 20px -15px rgba(122, 157, 150, 0.4);
-  /* Optional smooth fade on edges */
-}
-
 </style>
 """, unsafe_allow_html=True)
 
-# Insert the moving wave background div and open container div
+# Insert moving background
 st.markdown('<div class="wave-background"></div>', unsafe_allow_html=True)
-st.markdown('<div class="container">', unsafe_allow_html=True)
+
+
 
 # --- Load Model ---
 @st.cache_resource
