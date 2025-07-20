@@ -169,12 +169,13 @@ st.markdown("### Drawing Instructions")
 st.markdown("""
 To ensure accurate predictions, please follow these instructions:
 
-- Draw an **analog clock** showing the time 7 o'clock.
+- Draw an **analog clock** showing the time **7 o'clock**.
 - Include **all numbers** from 1 to 12.
 - Make sure the **hour and minute hands** are clear.
 - Keep the drawing clean and centered.
 - If drawn on paper, take a well-lit photo with no shadows or blur.
 """)
+
 
 
 # --- Example Clock ---
