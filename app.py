@@ -224,7 +224,7 @@ if uploaded_file is not None:
     except Exception as e:
         st.error(f"Failed to open image: {e}")
 
-# --- How It Works ---
+# ---**How It Works**---
 st.markdown("---")
 with st.expander("How This App Works", expanded=False):
     st.markdown("""
@@ -243,7 +243,8 @@ with st.expander("How This App Works", expanded=False):
     - May have Alzheimer's Disease
     - Typical
     - Invalid Input
-<br>
+    
+&nbsp;
 
 - **Results**  
   You’ll receive a prediction and a confidence score.
