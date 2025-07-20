@@ -165,7 +165,8 @@ You can read more about the Clock Drawing Test from a trusted health source [her
 
 # --- Drawing Instructions ---
 st.markdown("### Drawing Instructions")
-st.write("""
+
+st.markdown("""
 To ensure accurate predictions, please follow these instructions:
 
 - Draw an **analog clock** showing the time **7 o'clock**.
