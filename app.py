@@ -31,7 +31,7 @@ st.markdown("""
 
     background-size: 300% 300%;
     background-attachment: fixed;
-    animation: slowGradientShift 2s ease infinite;
+    animation: slowGradientShift 3s ease infinite;
     font-family: 'Segoe UI', sans-serif;
     color: #7a9d96;
     padding-bottom: 5rem;
