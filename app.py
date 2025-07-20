@@ -160,8 +160,7 @@ While the Clock Drawing Test alone can't diagnose these conditions, it can give 
 ---
 
  **Want to learn more?**  
-You can read more about the Clock Drawing Test from a trusted health source [here](https://pmc.ncbi.nlm.nih.gov/articles/PMC5619222/) — provided by the **U.S. National Institute on Aging (NIA)**.
-""")
+You can read more about the Clock Drawing Test from a trusted health source [here](https://pmc.ncbi.nlm.nih.gov/articles/PMC5619222/)
 
 
 # --- Drawing Instructions ---
