@@ -165,7 +165,6 @@ You can read more about the Clock Drawing Test from a trusted health source [her
 
 # --- Drawing Instructions ---
 st.markdown("### Drawing Instructions")
-
 st.write("""
 To ensure accurate predictions, please follow these instructions:
 
@@ -175,6 +174,7 @@ To ensure accurate predictions, please follow these instructions:
 - Keep the drawing clean and centered.
 - If drawn on paper, take a well-lit photo with no shadows or blur.
 """)
+
 
 
 
