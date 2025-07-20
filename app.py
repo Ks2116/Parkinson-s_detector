@@ -16,7 +16,6 @@ st.set_page_config(page_title="Parkinson's Clock Test", layout="centered")
 # --- Validation Disclaimer at the Top ---
 st.warning("⚠️ This application has not been clinically validated. Results must not be used as a substitute for a professional medical diagnosis.")
 
-
 # --- Subtle Professional Styling ---
 st.markdown("""
 <style>
@@ -27,13 +26,7 @@ st.markdown("""
 }
 
 .stApp {
-    background: linear-gradient(200deg, #f9f8fd, #f6f5f3, #eaf7f0, #fdfcfb, #e6ebe9);
-
-    background-size: 300% 300%;
-    background-attachment: fixed;
-    animation: slowGradientShift 3s ease infinite;
-    font-family: 'Segoe UI', sans-serif;
-    color: #7a9d96;
+    background: transparent !important;  /* Make transparent so container bg shows */
     padding-bottom: 5rem;
 }
 
@@ -115,16 +108,28 @@ img {
   opacity: 0.1;
   z-index: -1;
 }
+
+/* Container to limit width and center content with subtle side shadows */
+.container {
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.85);
+  border-radius: 16px;
+  box-shadow:
+    inset 10px 0 20px -15px rgba(122, 157, 150, 0.4),
+    inset -10px 0 20px -15px rgba(122, 157, 150, 0.4);
+  /* Optional smooth fade on edges */
+}
 </style>
 """, unsafe_allow_html=True)
 
-# Insert the moving wave background div right after your style block:
+# Insert the moving wave background div and open container div
 st.markdown('<div class="wave-background"></div>', unsafe_allow_html=True)
-
-
-
-
-
+st.markdown('<div class="container">', unsafe_allow_html=True)
 
 # --- Load Model ---
 @st.cache_resource
@@ -172,7 +177,6 @@ def predict_parkinsons(image, model, class_names):
 # --- Banner ---
 st.markdown('<div class="banner"><h1>Parkinson\'s Disease Detector</h1><p>AI-powered tool for analyzing clock drawings</p></div>', unsafe_allow_html=True)
 
-
 st.markdown("### What is the Clock Drawing Test?")
 
 st.markdown("""
@@ -196,7 +200,6 @@ While the Clock Drawing Test alone can't diagnose these conditions, it can give 
 You can read more about the Clock Drawing Test from a trusted health source [here](https://pmc.ncbi.nlm.nih.gov/articles/PMC5619222/)
 """)
 
-
 # --- Drawing Instructions ---
 st.markdown("""<hr style="border: 1px solid #dcdcdc; margin-top: 2rem; margin-bottom: 1rem;">""", unsafe_allow_html=True)
 st.markdown("""
@@ -211,8 +214,6 @@ st.markdown("""
 </ul>
 </div>
 """, unsafe_allow_html=True)
-
-
 
 # --- Example Clock ---
 st.markdown("### Example Clock Drawing")
@@ -231,7 +232,6 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 uploaded_file = st.file_uploader("Upload Image", type=["jpg", "jpeg", "png"])
-
 
 # --- Load Model & Labels ---
 model = load_model()
@@ -266,9 +266,7 @@ if uploaded_file is not None:
     except Exception as e:
         st.error(f"Failed to open image: {e}")
 
-
-
-# --- ** How It Works**---
+# --- How It Works ---
 st.markdown("""<hr style="border: 1px solid #dcdcdc; margin-top: 2rem; margin-bottom: 1rem;">""", unsafe_allow_html=True)
 
 with st.expander("⚙️ **How This App Works**", expanded=False):
@@ -280,7 +278,6 @@ with st.expander("⚙️ **How This App Works**", expanded=False):
 
 - **Preprocessing**   
   The image is adjusted to the input format required by the AI model and normalized.
-
 
 - **Prediction**  
   Our model classifies the image as:
@@ -308,3 +305,7 @@ st.markdown("[National Institute on Aging – What Is Alzheimer’s Disease?](ht
 
 # --- Disclaimer ---
 st.markdown("<p class='disclaimer'>Disclaimer: This tool is for educational and research purposes only and does not substitute professional medical advice.</p>", unsafe_allow_html=True)
+
+# Close container div
+st.markdown('</div>', unsafe_allow_html=True)
+
