@@ -16,6 +16,7 @@ st.set_page_config(page_title="Parkinson's Clock Test", layout="centered")
 # --- Validation Disclaimer at the Top ---
 st.warning("⚠️ This application has not been clinically validated. Results must not be used as a substitute for a professional medical diagnosis.")
 
+
 # --- Subtle Professional Styling ---
 st.markdown("""
 <style>
@@ -161,6 +162,7 @@ While the Clock Drawing Test alone can't diagnose these conditions, it can give 
 
  **Want to learn more?**  
 You can read more about the Clock Drawing Test from a trusted health source [here](https://pmc.ncbi.nlm.nih.gov/articles/PMC5619222/)
+""")
 
 
 # --- Drawing Instructions ---
