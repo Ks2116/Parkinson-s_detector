@@ -26,7 +26,7 @@ st.markdown("""
 }
 
 .stApp {
-    background: linear-gradient(200deg, #f9f8fd, #f6f5f3, #e1f5ec, #fdfcfb, #e2e1e0, #a8d5ba);
+    background: linear-gradient(200deg, #f9f8fd, #f6f5f3, #b8e0cc, #fdfcfb, #e2e1e0, #a8d5ba);
     background-size: 300% 300%;
     background-attachment: fixed;
     animation: slowGradientShift 11s ease infinite;
