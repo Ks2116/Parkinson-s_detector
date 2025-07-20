@@ -224,7 +224,7 @@ if uploaded_file is not None:
     except Exception as e:
         st.error(f"Failed to open image: {e}")
 
-# ---**How It Works**---
+# ---**⚙️ How It Works**---
 st.markdown("---")
 with st.expander("How This App Works", expanded=False):
     st.markdown("""
@@ -251,7 +251,7 @@ with st.expander("How This App Works", expanded=False):
 > Note: This tool is experimental and not a replacement for clinical diagnosis.
 """, unsafe_allow_html=True)
   
-# --- Learn More Section ---
+# ---🔎 Learn More Section ---
 st.markdown("---")
 st.markdown("### Learn More About Parkinson's Disease")
 st.write("To understand more about Parkinson’s Disease, its symptoms, causes, and available treatments, read the World Health Organization's fact sheet:")
