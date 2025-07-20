@@ -1,4 +1,4 @@
-import streamlit as st 
+import streamlit as st
 from PIL import Image, ImageOps
 import numpy as np
 import tensorflow.keras as keras
@@ -14,21 +14,26 @@ IMAGE_SIZE = (224, 224)
 st.set_page_config(page_title="Parkinson's Clock Test", layout="centered")
 
 # --- Validation Disclaimer at the Top ---
-st.warning("\u26a0\ufe0f This application has not been clinically validated. Results must not be used as a substitute for a professional medical diagnosis.")
+st.warning("⚠️ This application has not been clinically validated. Results must not be used as a substitute for a professional medical diagnosis.")
 
-# --- Styling ---
+# --- Subtle Professional Styling ---
 st.markdown("""
 <style>
-/* Light Theme Lock */
-html, body, [data-theme] {
-    color-scheme: light !important;
-    background-color: #f6f9fc !important;
-}
-
 @keyframes slowGradientShift {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
+}
+
+@media (prefers-color-scheme: dark) {
+  html, body, .stApp {
+    filter: invert(1) hue-rotate(180deg);
+    background-color: #ffffff;
+  }
+
+  img, video {
+    filter: invert(1) hue-rotate(180deg);
+  }
 }
 
 .stApp {
@@ -38,44 +43,8 @@ html, body, [data-theme] {
     animation: slowGradientShift 3s ease infinite;
     font-family: 'Segoe UI', sans-serif;
     color: #355c60;
-    padding-bottom: 5rem;
-}
-
-@keyframes waveAnimation {
-  0% { background-position: 0 0; }
-  100% { background-position: 1000px 0; }
-}
-
-.wave-background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: url('https://svgshare.com/i/uY_.svg');
-  background-repeat: repeat-x;
-  background-size: 1000px 100%;
-  animation: waveAnimation 20s linear infinite;
-  opacity: 0.05;
-  z-index: -1;
-}
-
-.banner {
-    background: linear-gradient(135deg, #91c8ea, #d4eefc);
-    color: #003049;
-    text-align: center;
-    padding: 2.5rem 1rem;
-    border-radius: 16px;
-    box-shadow: 0 12px 24px rgba(0,0,0,0.08);
-    margin-bottom: 3rem;
-}
-
-h1 { font-size: 2.6rem; font-weight: 700; }
-h2, h3 { color: #264653; font-weight: 600; }
-p, li {
-    font-size: 1.05rem;
-    line-height: 1.6;
-    color: #344955;
+    padding: 2rem 10vw 5rem 10vw;
+    box-sizing: border-box;
 }
 
 .card {
@@ -84,6 +53,33 @@ p, li {
     border-radius: 12px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
     margin-bottom: 2rem;
+}
+
+.banner {
+    background: linear-gradient(135deg, #91c8ea, #d4eefc);
+    color: #fff;
+    text-align: center;
+    padding: 2.5rem 1rem;
+    border-radius: 16px;
+    box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+    margin-bottom: 3rem;
+}
+
+h1 {
+    font-size: 2.6rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+h2, h3 {
+    color: #37474f;
+    font-weight: 600;
+    margin-top: 2rem;
+}
+
+p, li {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #263238;
 }
 
 img {
@@ -104,6 +100,29 @@ img {
     color: #607d8b;
     margin-top: 4rem;
     text-align: center;
+}
+
+@keyframes waveAnimation {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.wave-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('https://svgshare.com/i/uY_.svg');
+  background-repeat: repeat-x;
+  background-size: 1000px 100%;
+  animation: waveAnimation 20s linear infinite;
+  opacity: 0.06;
+  z-index: -1;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -156,11 +175,27 @@ def predict_parkinsons(image, model, class_names):
 # --- Banner ---
 st.markdown('<div class="banner"><h1>Parkinson\'s Disease Detector</h1><p>AI-powered tool for analyzing clock drawings</p></div>', unsafe_allow_html=True)
 
-# --- Info Section ---
 st.markdown("### What is the Clock Drawing Test?")
 
 st.markdown("""
-The **Clock Drawing Test** is a widely used screening tool... [truncated for brevity]
+The **Clock Drawing Test** is a widely used screening tool that helps check how well a person's brain is working. It usually involves drawing an analog clock showing a specific time — such as **7 o'clock** — with all the numbers and the clock hands in the right places.
+
+This task may seem simple, but it actually involves several mental skills, such as:
+- Understanding and following instructions  
+- Visual-spatial skills (how things fit together visually)  
+- Motor coordination (hand movement and control)  
+- Memory and reasoning
+
+These types of brain functions are called **cognitive abilities**, which basically means how we think, learn, remember, and solve problems.
+
+Doctors often use this test to spot early warning signs of brain-related conditions like **Parkinson’s disease** and **Alzheimer’s disease**.
+
+While the Clock Drawing Test alone can't diagnose these conditions, it can give helpful clues when used together with other medical checks.
+
+---
+
+ **Want to learn more?**  
+You can read more about the Clock Drawing Test from a trusted health source [here](https://pmc.ncbi.nlm.nih.gov/articles/PMC5619222/)
 """)
 
 # --- Drawing Instructions ---
@@ -186,25 +221,27 @@ try:
 except:
     st.warning("Example image not found. Please place 'clock_example.png' in the same folder.")
 
-# --- Upload ---
+# --- Upload Drawing ---
 st.markdown("""
 <div style='background-color: #ffffff; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.04); margin-top: 2rem;'>
 <h3 style='margin-top: 0;'>Upload Your Clock Drawing</h3>
-<p style='margin-bottom: 1rem;'>Please upload a clear photo...</p>
+<p style='margin-bottom: 1rem;'>Please upload a clear photo of a hand-drawn analog clock showing <strong>7 o'clock</strong>. Ensure the image is well-lit and free of shadows.</p>
 </div>
 """, unsafe_allow_html=True)
 
 uploaded_file = st.file_uploader("Upload Image", type=["jpg", "jpeg", "png"])
 
-# --- Load model & predict ---
+# --- Load Model & Labels ---
 model = load_model()
 class_names = load_labels()
 if model is None or class_names is None:
     st.stop()
 
+# --- Handle Uploaded File ---
 if uploaded_file is not None:
     try:
         image = Image.open(uploaded_file)
+
         st.markdown("### Uploaded Image")
         st.image(image, caption="Uploaded Clock Drawing", width=300)
 
@@ -216,29 +253,56 @@ if uploaded_file is not None:
         st.info(f"**The system is {confidence_score:.0%} confident in this result.**")
 
         if predicted_class.strip() == "May have Parkinson's Disease":
-            st.warning("This drawing may show signs of Parkinson's disease...")
+            st.warning("This drawing may show signs of Parkinson's disease. Please consult a medical professional.")
         elif predicted_class.strip() == "May have Alzheimer's Disease":
-            st.warning("This drawing may show signs of Alzheimer's disease...")
+            st.warning("This drawing may show signs of Alzheimer's disease. Consider consulting a doctor.")
         elif predicted_class.strip() == "Invalid Input":
-            st.error("The uploaded image is not a valid clock drawing.")
+            st.error("The uploaded image is not a valid clock drawing. Please upload a proper one.")
         else:
             st.success("This clock drawing appears typical.")
 
     except Exception as e:
         st.error(f"Failed to open image: {e}")
 
-# --- How it works ---
+# --- How It Works ---
 st.markdown("""<hr style="border: 1px solid #dcdcdc; margin-top: 2rem; margin-bottom: 1rem;">""", unsafe_allow_html=True)
-with st.expander("\u2699\ufe0f **How This App Works**", expanded=False):
-    st.markdown("""... (keep content as is)""")
 
-# --- Learn More ---
-st.markdown("### \ud83d\udd0e Learn More About Parkinson's Disease")
-st.markdown("[WHO – Parkinson Disease](https://www.who.int/news-room/fact-sheets/detail/parkinson-disease)")
-st.markdown("### \ud83d\udd0e Learn More About Alzheimer’s Disease")
-st.markdown("[NIA – What Is Alzheimer’s Disease?](https://www.nia.nih.gov/health/alzheimers-and-dementia/what-alzheimers-disease)")
+with st.expander("⚙️ **How This App Works**", expanded=False):
+    st.markdown("""
+**Step-by-step Process:**
+
+- **Upload Clock Drawing**  
+  Submit a hand-drawn or digital clock image.
+
+- **Preprocessing**   
+  The image is adjusted to the input format required by the AI model and normalized.
+
+- **Prediction**  
+  Our model classifies the image as:
+    - May have Parkinson's Disease
+    - May have Alzheimer's Disease
+    - Typical
+    - Invalid Input
+    
+&nbsp;
+- **Results**  
+  You’ll receive a prediction and a confidence score.
+
+> Note: This tool is experimental and not a replacement for clinical diagnosis.
+""", unsafe_allow_html=True)
+
+# --- Learn More Section ---
+st.markdown("""<hr style="border: 1px solid #dcdcdc; margin-top: 2rem; margin-bottom: 1rem;">""", unsafe_allow_html=True)
+st.markdown("### 🔎 Learn More About Parkinson's Disease")
+st.write("To understand more about Parkinson’s Disease, its symptoms, causes, and available treatments, read the World Health Organization's fact sheet:")
+st.markdown("[World Health Organization – Parkinson Disease (WHO)](https://www.who.int/news-room/fact-sheets/detail/parkinson-disease)")
+
+st.markdown("### 🔎 Learn More About Alzheimer’s Disease")
+st.write("To learn more about Alzheimer’s Disease, including its signs, stages, causes, and care options, visit the National Institute on Aging’s official resource:")
+st.markdown("[National Institute on Aging – What Is Alzheimer’s Disease?](https://www.nia.nih.gov/health/alzheimers-and-dementia/what-alzheimers-disease)")
 
 # --- Disclaimer ---
 st.markdown("<p class='disclaimer'>Disclaimer: This tool is for educational and research purposes only and does not substitute professional medical advice.</p>", unsafe_allow_html=True)
+
 
 
