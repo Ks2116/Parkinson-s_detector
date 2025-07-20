@@ -224,9 +224,9 @@ if uploaded_file is not None:
     except Exception as e:
         st.error(f"Failed to open image: {e}")
 
-# --- ⚙️ ** How It Works**---
+# --- ** How It Works**---
 st.markdown("---")
-with st.expander("How This App Works", expanded=False):
+with st.expander("⚙️ **How This App Works**", expanded=False):
     st.markdown("""
 **Step-by-step Process:**
 
@@ -251,13 +251,13 @@ with st.expander("How This App Works", expanded=False):
 > Note: This tool is experimental and not a replacement for clinical diagnosis.
 """, unsafe_allow_html=True)
   
-# 🔎 --- Learn More Section ---
+# --- Learn More Section ---
 st.markdown("---")
-st.markdown("### Learn More About Parkinson's Disease")
+st.markdown("### 🔎 Learn More About Parkinson's Disease")
 st.write("To understand more about Parkinson’s Disease, its symptoms, causes, and available treatments, read the World Health Organization's fact sheet:")
 st.markdown("[World Health Organization – Parkinson Disease (WHO)](https://www.who.int/news-room/fact-sheets/detail/parkinson-disease)")
 
-st.markdown("### Learn More About Alzheimer’s Disease")
+st.markdown("### 🔎 Learn More About Alzheimer’s Disease")
 st.write("To learn more about Alzheimer’s Disease, including its signs, stages, causes, and care options, visit the National Institute on Aging’s official resource:")
 st.markdown("[National Institute on Aging – What Is Alzheimer’s Disease?](https://www.nia.nih.gov/health/alzheimers-and-dementia/what-alzheimers-disease)")
 
