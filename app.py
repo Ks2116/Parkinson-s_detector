@@ -27,12 +27,13 @@ st.markdown("""
 }
 
 .stApp {
-    background: linear-gradient(200deg, #e8f0f8, #d6e6f4, #c5dbf1, #d6e6f4, #e8f0f8);
+    background: linear-gradient(200deg, #f9f8fd, #f6f5f3, #eaf7f0, #fdfcfb, #e6ebe9);
+
     background-size: 300% 300%;
     background-attachment: fixed;
     animation: slowGradientShift 3.5s ease infinite;
     font-family: 'Segoe UI', sans-serif;
-    color: #1f2937;  /* Dark slate blue for good contrast */
+    color: #7a9d96;
     padding-bottom: 5rem;
 }
 
@@ -45,7 +46,7 @@ st.markdown("""
 }
 
 .banner {
-    background: linear-gradient(135deg, #4a90e2, #70a7f7);
+    background: linear-gradient(135deg, #7a9d96, #cae4db);
     color: white;
     text-align: center;
     padding: 2.5rem 1rem;
@@ -54,14 +55,13 @@ st.markdown("""
     margin-bottom: 3rem;
 }
 
-
 h1 {
     font-size: 2.6rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
 }
 h2, h3 {
-    color: #1e293b;
+    color: #37474f;
     font-weight: 600;
     margin-top: 2rem;
 }
@@ -69,7 +69,7 @@ h2, h3 {
 p, li {
     font-size: 1.05rem;
     line-height: 1.6;
-    color: #334155;
+    color: #263238;
 }
 
 img {
@@ -78,16 +78,16 @@ img {
 }
 
 [data-testid="stFileUploader"] {
-    border: 2px dashed #3b82f6;
+    border: 2px dashed #90caf9;
     border-radius: 12px;
     padding: 1.5rem;
-    background-color: rgba(255,255,255,0.98);
+    background-color: rgba(255,255,255,0.95);
     margin-bottom: 1.5rem;
 }
 
 .disclaimer {
     font-size: 0.9rem;
-    color: #64748b;
+    color: #607d8b;
     margin-top: 4rem;
     text-align: center;
 }
@@ -112,15 +112,15 @@ img {
   background-repeat: repeat-x;
   background-size: 1000px 100%;
   animation: waveAnimation 20s linear infinite;
-  opacity: 0.15;
+  opacity: 0.1;
   z-index: -1;
-  background-color: rgba(59, 130, 246, 0.07); /* soft blue tint */
-  background-blend-mode: screen;
 }
 </style>
 """, unsafe_allow_html=True)
 
+# Insert the moving wave background div right after your style block:
 st.markdown('<div class="wave-background"></div>', unsafe_allow_html=True)
+
 
 
 
