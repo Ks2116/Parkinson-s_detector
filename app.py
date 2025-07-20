@@ -243,13 +243,13 @@ with st.expander("How This App Works", expanded=False):
     - May have Alzheimer's Disease
     - Typical
     - Invalid Input
-    
+<br>
 
 - **Results**  
   You’ll receive a prediction and a confidence score.
 
 > Note: This tool is experimental and not a replacement for clinical diagnosis.
-""")
+""", unsafe_allow_html=True)
   
 # --- Learn More Section ---
 st.markdown("---")
