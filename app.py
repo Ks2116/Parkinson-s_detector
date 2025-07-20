@@ -26,7 +26,7 @@ st.markdown("""
 }
 
 .stApp {
-    background: linear-gradient(200deg, #f9f8fd, #f6f5f3, #7dce94);
+    background: linear-gradient(200deg, #f9f8fd, #f6f5f3, #7dce94, #fdfcfb, #e2e1e0, #a8d5ba);
     background-size: 300% 300%;
     background-attachment: fixed;
     animation: slowGradientShift 7s ease infinite;
@@ -215,6 +215,7 @@ with st.expander("How This App Works", expanded=False):
     - May have Alzheimer's Disease
     - Typical
     - Invalid Input
+    
 
 - **Results**  
   You’ll receive a prediction and a confidence score.
