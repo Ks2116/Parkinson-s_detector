@@ -209,11 +209,11 @@ if uploaded_file is not None:
         st.markdown("### Uploaded Image")
         st.image(image, caption="Uploaded Clock Drawing", width=300)
 
-     with st.spinner("Analyzing image..."):
-    for percent in range(0, 101, 10):
-        time.sleep(0.1)
-        st.progress(percent)
-    predicted_class, confidence_score = predict_parkinsons(image, model, class_names)
+        with st.spinner("Analyzing image..."):
+            for percent in range(0, 101, 10):
+                time.sleep(0.1)
+                st.progress(percent)
+            predicted_class, confidence_score = predict_parkinsons(image, model, class_names)
 
         st.success(f"**Prediction:** {predicted_class}")
         st.info(f"**The system is {confidence_score:.0%} confident in this result.**")
@@ -229,6 +229,7 @@ if uploaded_file is not None:
 
     except Exception as e:
         st.error(f"Failed to open image: {e}")
+
 
 # --- ** How It Works**---
 st.markdown("""<hr style="border: 1px solid #dcdcdc; margin-top: 2rem; margin-bottom: 1rem;">""", unsafe_allow_html=True)
