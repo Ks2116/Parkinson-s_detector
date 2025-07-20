@@ -139,6 +139,31 @@ def predict_parkinsons(image, model, class_names):
 # --- Banner ---
 st.markdown('<div class="banner"><h1>Parkinson\'s Disease Detector</h1><p>AI-powered tool for analyzing clock drawings</p></div>', unsafe_allow_html=True)
 
+
+st.markdown("### What is the Clock Drawing Test?")
+
+st.markdown("""
+The **Clock Drawing Test** is a widely used screening tool that helps check how well a person's brain is working. It usually involves drawing an analog clock showing a specific time — such as **7 o'clock** — with all the numbers and the clock hands in the right places.
+
+This task may seem simple, but it actually involves several mental skills, such as:
+- Understanding and following instructions  
+- Visual-spatial skills (how things fit together visually)  
+- Motor coordination (hand movement and control)  
+- Memory and reasoning
+
+These types of brain functions are called **cognitive abilities**, which basically means how we think, learn, remember, and solve problems.
+
+Doctors often use this test to spot early warning signs of brain-related conditions like **Parkinson’s disease** and **Alzheimer’s disease**.
+
+While the Clock Drawing Test alone can't diagnose these conditions, it can give helpful clues when used together with other medical checks.
+
+---
+
+ **Want to learn more?**  
+You can read more about the Clock Drawing Test from a trusted health source [here](https://www.nia.nih.gov/health/clock-drawing-test) — provided by the **U.S. National Institute on Aging (NIA)**.
+""")
+
+
 # --- Drawing Instructions ---
 st.markdown("### Drawing Instructions")
 st.write("""
