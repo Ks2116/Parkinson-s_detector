@@ -189,7 +189,7 @@ except:
 # --- Upload Drawing ---
 st.markdown("### Upload Your Clock Drawing")
 st.write("Please upload a clear photo of your 7 o'clock clock drawing.")
-uploaded_file = st.file_uploader("Upload Image", type=["jpg", "jpeg", "png"])
+uploaded_file = st.file_uploader("**Upload Image**", type=["jpg", "jpeg", "png"])
 
 # --- Load Model & Labels ---
 model = load_model()
