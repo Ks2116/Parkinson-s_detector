@@ -16,6 +16,7 @@ st.set_page_config(page_title="Parkinson's Clock Test", layout="centered")
 # --- Validation Disclaimer at the Top ---
 st.warning("⚠️ This application has not been clinically validated. Results must not be used as a substitute for a professional medical diagnosis.")
 
+
 # --- Subtle Professional Styling ---
 st.markdown("""
 <style>
@@ -26,12 +27,12 @@ st.markdown("""
 }
 
 .stApp {
-    background: linear-gradient(200deg, #edf3f2, #e1ecea, #d6e5e2, #dae8e5, #d0ded9);
+    background: linear-gradient(200deg, #e8f0f8, #d6e6f4, #c5dbf1, #d6e6f4, #e8f0f8);
     background-size: 300% 300%;
     background-attachment: fixed;
     animation: slowGradientShift 3.5s ease infinite;
     font-family: 'Segoe UI', sans-serif;
-    color: #6a8f85;
+    color: #1f2937;  /* Dark slate blue for good contrast */
     padding-bottom: 5rem;
 }
 
@@ -44,7 +45,7 @@ st.markdown("""
 }
 
 .banner {
-    background: linear-gradient(135deg, #6a8f85, #b5d2ca);
+    background: linear-gradient(135deg, #3b82f6, #60a5fa);
     color: white;
     text-align: center;
     padding: 2.5rem 1rem;
@@ -59,7 +60,7 @@ h1 {
     margin-bottom: 0.5rem;
 }
 h2, h3 {
-    color: #324844;
+    color: #1e293b;
     font-weight: 600;
     margin-top: 2rem;
 }
@@ -67,7 +68,7 @@ h2, h3 {
 p, li {
     font-size: 1.05rem;
     line-height: 1.6;
-    color: #2a3a36;
+    color: #334155;
 }
 
 img {
@@ -76,16 +77,16 @@ img {
 }
 
 [data-testid="stFileUploader"] {
-    border: 2px dashed #6a8f85;
+    border: 2px dashed #3b82f6;
     border-radius: 12px;
     padding: 1.5rem;
-    background-color: rgba(255,255,255,0.95);
+    background-color: rgba(255,255,255,0.98);
     margin-bottom: 1.5rem;
 }
 
 .disclaimer {
     font-size: 0.9rem;
-    color: #607d8b;
+    color: #64748b;
     margin-top: 4rem;
     text-align: center;
 }
@@ -110,10 +111,9 @@ img {
   background-repeat: repeat-x;
   background-size: 1000px 100%;
   animation: waveAnimation 20s linear infinite;
-  opacity: 0.18;
+  opacity: 0.15;
   z-index: -1;
-  /* Add subtle blue-green tint */
-  background-color: rgba(106, 143, 133, 0.1);
+  background-color: rgba(59, 130, 246, 0.07); /* soft blue tint */
   background-blend-mode: screen;
 }
 </style>
