@@ -205,8 +205,9 @@ with st.expander("How This App Works", expanded=False):
 - **Upload Clock Drawing**  
   Submit a hand-drawn or digital clock image.
 
-- **Preprocessing**  
-  The image is resized and normalized.
+- **Preprocessing**   
+  The image is adjusted to the input format required by the AI model and normalized.
+
 
 - **Prediction**  
   Our model classifies the image as:
