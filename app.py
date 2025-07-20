@@ -258,8 +258,8 @@ st.write("To understand more about Parkinson’s Disease, its symptoms, causes, 
 st.markdown("[World Health Organization – Parkinson Disease (WHO)](https://www.who.int/news-room/fact-sheets/detail/parkinson-disease)")
 
 st.markdown("### Learn More About Alzheimer’s Disease")
-st.write("To learn more about Alzheimer’s Disease, including how it affects memory and thinking, as well as available care options and support, refer to the WHO’s overview on dementia:")
-st.markdown("[World Health Organization – Dementia (includes Alzheimer’s Disease)](https://www.who.int/news-room/fact-sheets/detail/dementia)")
+st.write("To learn more about Alzheimer’s Disease, including its signs, stages, causes, and care options, visit the National Institute on Aging’s official resource:")
+st.markdown("[National Institute on Aging – What Is Alzheimer’s Disease?](https://www.nia.nih.gov/health/alzheimers-and-dementia/what-alzheimers-disease)")
 
 # --- Disclaimer ---
 st.markdown("<p class='disclaimer'>Disclaimer: This tool is for educational and research purposes only and does not substitute professional medical advice.</p>", unsafe_allow_html=True)
