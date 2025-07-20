@@ -16,7 +16,6 @@ st.set_page_config(page_title="Parkinson's Clock Test", layout="centered")
 # --- Validation Disclaimer at the Top ---
 st.warning("⚠️ This application has not been clinically validated. Results must not be used as a substitute for a professional medical diagnosis.")
 
-
 # --- Subtle Professional Styling ---
 st.markdown("""
 <style>
@@ -27,13 +26,12 @@ st.markdown("""
 }
 
 .stApp {
-    background: linear-gradient(200deg, #f9f8fd, #f6f5f3, #eaf7f0, #fdfcfb, #e6ebe9);
-
+    background: linear-gradient(200deg, #edf3f2, #e1ecea, #d6e5e2, #dae8e5, #d0ded9);
     background-size: 300% 300%;
     background-attachment: fixed;
     animation: slowGradientShift 3.5s ease infinite;
     font-family: 'Segoe UI', sans-serif;
-    color: #7a9d96;
+    color: #6a8f85;
     padding-bottom: 5rem;
 }
 
@@ -46,7 +44,7 @@ st.markdown("""
 }
 
 .banner {
-    background: linear-gradient(135deg, #7a9d96, #cae4db);
+    background: linear-gradient(135deg, #6a8f85, #b5d2ca);
     color: white;
     text-align: center;
     padding: 2.5rem 1rem;
@@ -61,7 +59,7 @@ h1 {
     margin-bottom: 0.5rem;
 }
 h2, h3 {
-    color: #37474f;
+    color: #324844;
     font-weight: 600;
     margin-top: 2rem;
 }
@@ -69,7 +67,7 @@ h2, h3 {
 p, li {
     font-size: 1.05rem;
     line-height: 1.6;
-    color: #263238;
+    color: #2a3a36;
 }
 
 img {
@@ -78,7 +76,7 @@ img {
 }
 
 [data-testid="stFileUploader"] {
-    border: 2px dashed #90caf9;
+    border: 2px dashed #6a8f85;
     border-radius: 12px;
     padding: 1.5rem;
     background-color: rgba(255,255,255,0.95);
@@ -112,14 +110,19 @@ img {
   background-repeat: repeat-x;
   background-size: 1000px 100%;
   animation: waveAnimation 20s linear infinite;
-  opacity: 0.1;
+  opacity: 0.18;
   z-index: -1;
+  /* Add subtle blue-green tint */
+  background-color: rgba(106, 143, 133, 0.1);
+  background-blend-mode: screen;
 }
 </style>
 """, unsafe_allow_html=True)
 
-# Insert the moving wave background div right after your style block:
 st.markdown('<div class="wave-background"></div>', unsafe_allow_html=True)
+
+
+
 
 
 # --- Load Model ---
