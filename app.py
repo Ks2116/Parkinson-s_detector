@@ -166,16 +166,20 @@ You can read more about the Clock Drawing Test from a trusted health source [her
 
 
 # --- Drawing Instructions ---
-st.markdown("### Drawing Instructions")
-st.write("""
-To ensure accurate predictions, please follow these instructions:
+st.markdown("""<hr style="border: 1px solid #dcdcdc; margin-top: 2rem; margin-bottom: 1rem;">""", unsafe_allow_html=True)
+st.markdown("""
+<div style='background-color: #ffffff; padding: 1.5rem; border-radius: 16px; box-shadow: 0 6px 12px rgba(0,0,0,0.05);'>
+<h3 style='margin-top: 0;'>Drawing Instructions</h3>
+<ul>
+  <li>Draw an <strong>analog clock</strong> showing the time <strong>7 o'clock</strong>.</li>
+  <li>Include <strong>all numbers</strong> from 1 to 12.</li>
+  <li>Ensure the <strong>hour and minute hands</strong> are clear and correctly placed.</li>
+  <li>Keep the drawing neat and centered.</li>
+  <li>If drawn on paper, take a clear, well-lit photo with no shadows or blur.</li>
+</ul>
+</div>
+""", unsafe_allow_html=True)
 
-- Draw an **analog clock** showing the time **7 o'clock**.
-- Include **all numbers** from 1 to 12.
-- Make sure the **hour and minute hands** are clear.
-- Keep the drawing clean and centered.
-- If drawn on paper, take a well-lit photo with no shadows or blur.
-""")
 
 
 # --- Example Clock ---
@@ -205,9 +209,11 @@ if uploaded_file is not None:
         st.markdown("### Uploaded Image")
         st.image(image, caption="Uploaded Clock Drawing", width=300)
 
-        with st.spinner("Analyzing image..."):
-            time.sleep(2)
-            predicted_class, confidence_score = predict_parkinsons(image, model, class_names)
+     with st.spinner("Analyzing image..."):
+    for percent in range(0, 101, 10):
+        time.sleep(0.1)
+        st.progress(percent)
+    predicted_class, confidence_score = predict_parkinsons(image, model, class_names)
 
         st.success(f"**Prediction:** {predicted_class}")
         st.info(f"**The system is {confidence_score:.0%} confident in this result.**")
@@ -225,7 +231,8 @@ if uploaded_file is not None:
         st.error(f"Failed to open image: {e}")
 
 # --- ** How It Works**---
-st.markdown("---")
+st.markdown("""<hr style="border: 1px solid #dcdcdc; margin-top: 2rem; margin-bottom: 1rem;">""", unsafe_allow_html=True)
+
 with st.expander("⚙️ **How This App Works**", expanded=False):
     st.markdown("""
 **Step-by-step Process:**
@@ -252,7 +259,7 @@ with st.expander("⚙️ **How This App Works**", expanded=False):
 """, unsafe_allow_html=True)
   
 # --- Learn More Section ---
-st.markdown("---")
+st.markdown("""<hr style="border: 1px solid #dcdcdc; margin-top: 2rem; margin-bottom: 1rem;">""", unsafe_allow_html=True)
 st.markdown("### 🔎 Learn More About Parkinson's Disease")
 st.write("To understand more about Parkinson’s Disease, its symptoms, causes, and available treatments, read the World Health Organization's fact sheet:")
 st.markdown("[World Health Organization – Parkinson Disease (WHO)](https://www.who.int/news-room/fact-sheets/detail/parkinson-disease)")
