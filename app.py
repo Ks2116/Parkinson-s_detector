@@ -176,8 +176,6 @@ To ensure accurate predictions, please follow these instructions:
 """)
 
 
-
-
 # --- Example Clock ---
 st.markdown("### Example Clock Drawing")
 try:
