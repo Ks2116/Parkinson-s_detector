@@ -291,7 +291,7 @@ if prediction == "May have Parkinson's Disease":
             unsafe_allow_html=True
         )
 
-elif prediction == "May have Alzheimer's disease":
+elif prediction == "May have Alzheimer's Disease":
     st.markdown("---")
     with st.container():
         st.markdown(
