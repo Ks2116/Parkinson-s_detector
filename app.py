@@ -258,7 +258,6 @@ if uploaded_file is not None:
     except Exception as e:
         st.error(f"Failed to open image: {e}")
 
-# Reassuring next steps based on prediction type
 if prediction == "May have Parkinson's Disease":
     st.markdown("---")
     with st.container():
