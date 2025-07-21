@@ -29,7 +29,7 @@ html, body, .stApp {
     background: linear-gradient(200deg, #eef6fa, #f8fbfe, #e9f3f7, #f6f9fc, #FFFFFF, #F4F5F0);
     background-size: 300% 300%;
     background-attachment: fixed;
-    animation: slowGradientShift 3s ease infinite;
+    animation: slowGradientShift 4s ease infinite;
     font-family: 'Segoe UI', sans-serif;
     color: #355c60;
     padding: 2rem 10vw 5rem 10vw;
