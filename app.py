@@ -258,6 +258,72 @@ if uploaded_file is not None:
     except Exception as e:
         st.error(f"Failed to open image: {e}")
 
+# Reassuring next steps based on prediction type
+if prediction == "May have Parkinson's Disease":
+    st.markdown("---")
+    with st.container():
+        st.markdown(
+            """
+            <div style='padding: 1.5rem; border-radius: 15px; background-color: #f3f4f6; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);'>
+                <h3 style='color: #374151;'>🧭 Your Result May Suggest Signs Related to Parkinson’s</h3>
+                <p style='font-size: 1.05rem; color: #4B5563;'>
+                    This result does <strong>not</strong> mean you have Parkinson’s Disease. This tool simply identified patterns that <em>might</em> resemble those seen in individuals with Parkinson’s.
+                </p>
+
+                <h4 style='color: #111827;'>If you're feeling unsure, here's what you can do:</h4>
+                <ul style='color: #374151; line-height: 1.6;'>
+                    <li>You don’t need to panic — this is just a potential indication, not a diagnosis.</li>
+                    <li>Consider checking in with a <strong>neurologist</strong> or general practitioner if you have concerns.</li>
+                    <li>They may offer more detailed assessments such as movement tests or imaging, if appropriate.</li>
+                </ul>
+
+                <h4 style='color: #111827;'>Why a follow-up could be helpful:</h4>
+                <ul style='color: #374151; line-height: 1.6;'>
+                    <li>It helps clarify things and gives you peace of mind.</li>
+                    <li>Early check-ups allow better tracking and management, even if everything is fine.</li>
+                </ul>
+
+                <p style='margin-top: 1rem; font-size: 0.95rem; color: #6B7280;'>
+                    This app is just a starting point — exploring your concerns with a professional is always a safe and proactive choice.
+                </p>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+elif prediction == "May have Alzheimer's disease":
+    st.markdown("---")
+    with st.container():
+        st.markdown(
+            """
+            <div style='padding: 1.5rem; border-radius: 15px; background-color: #f3f4f6; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);'>
+                <h3 style='color: #374151;'>🧭 Your Result May Suggest Patterns Linked to Alzheimer’s</h3>
+                <p style='font-size: 1.05rem; color: #4B5563;'>
+                    This result does <strong>not</strong> confirm Alzheimer’s. It simply suggests there may be some visual features similar to those observed in Alzheimer’s cases.
+                </p>
+
+                <h4 style='color: #111827;'>Next steps you might want to consider:</h4>
+                <ul style='color: #374151; line-height: 1.6;'>
+                    <li>No need to worry — this is just an early indicator for your awareness.</li>
+                    <li>If you're experiencing memory issues or are concerned, consider speaking to a <strong>doctor</strong> or <strong>memory care specialist</strong>.</li>
+                    <li>They may suggest cognitive testing or scans to provide more clarity.</li>
+                </ul>
+
+                <h4 style='color: #111827;'>Why a gentle follow-up could help:</h4>
+                <ul style='color: #374151; line-height: 1.6;'>
+                    <li>Understanding more about your cognitive health is always useful.</li>
+                    <li>Even a brief consultation can offer guidance and reassurance.</li>
+                </ul>
+
+                <p style='margin-top: 1rem; font-size: 0.95rem; color: #6B7280;'>
+                    You're doing the right thing by taking an interest in your brain health. A calm conversation with a professional can help you feel more at ease.
+                </p>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+
 # --- How It Works ---
 st.markdown("""<hr style="border: 1px solid #dcdcdc; margin-top: 2rem; margin-bottom: 1rem;">""", unsafe_allow_html=True)
 
