@@ -105,19 +105,26 @@ img {
   }
 }
 
+<style>
+@keyframes waveAnimation {
+  0%   { background-position: 0 0; }
+  100% { background-position: 1200px 0; }
+}
+
 .wave-background {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: url('https://svgshare.com/i/uY_.svg');
+  background: url('https://i.ibb.co/DkxXbH0/turquoise-wave-long.png');
   background-repeat: repeat-x;
-  background-size: 1000px 100%;
-  animation: waveAnimation 20s linear infinite;
-  opacity: 0.06;
+  background-size: 1200px auto;
+  animation: waveAnimation 40s linear infinite;
+  opacity: 0.08;
   z-index: -1;
 }
+
 </style>
 """, unsafe_allow_html=True)
 
