@@ -272,11 +272,11 @@ if uploaded_file is not None:
             st.markdown(
                 """
                 <div style='padding: 1.5rem; border-radius: 15px; background-color: #f3f4f6; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);'>
-                    <h3 style='color: #374151;'>🧭 Your Result May Suggest Signs Related to Parkinson’s</h3>
+                    <h3 style='color: #374151;'>🧭 Your Result May Suggest Signs Related to Parkinson’s Disease</h3>
                     <p style='font-size: 1.05rem; color: #4B5563;'>
-                        This result does <strong>not</strong> mean you have Parkinson’s Disease. It simply indicates patterns that <em>may</em> resemble those found in some Parkinson’s cases.
+                        This result does <strong>Not Necessarily</strong> mean that you have Parkinson’s Disease. It simply indicates patterns that <em>**may**</em> resemble those found in some Parkinson’s cases.
                     </p>
-                    <h4 style='color: #111827;'>If you're feeling unsure, here’s what you can do:</h4>
+                    <h4 style='color: #111827;'>here’s what you can do next:</h4>
                     <ul style='color: #374151; line-height: 1.6;'>
                         <li>Stay calm — this is only a screening tool, not a diagnosis.</li>
                         <li>Consider consulting a <strong>neurologist</strong> or primary care doctor.</li>
@@ -302,14 +302,14 @@ if uploaded_file is not None:
             st.markdown(
                 """
                 <div style='padding: 1.5rem; border-radius: 15px; background-color: #f3f4f6; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);'>
-                    <h3 style='color: #374151;'>🧭 Your Result May Suggest Patterns Linked to Alzheimer’s</h3>
+                    <h3 style='color: #374151;'>🧭 Your Result May Suggest Patterns Linked to Alzheimer’s Disease</h3>
                     <p style='font-size: 1.05rem; color: #4B5563;'>
-                        This result does <strong>not</strong> confirm Alzheimer’s. It only points to some signs that may resemble those found in Alzheimer’s-related drawings.
+                        This result does <strong>Not</strong> confirm Alzheimer’s. It only points to some signs that may resemble those found in Alzheimer’s-related drawings.
                     </p>
-                    <h4 style='color: #111827;'>You might consider:</h4>
+                    <h4 style='color: #111827;'>Here's what you can do next:</h4>
                     <ul style='color: #374151; line-height: 1.6;'>
                         <li>Staying calm — this is just an early suggestion, not a diagnosis.</li>
-                        <li>Talking with a <strong>doctor</strong> or <strong>memory specialist</strong> if you have concerns.</li>
+                        <li>Consulting with a <strong>doctor</strong> or <strong>memory specialist</strong> if you have concerns.</li>
                         <li>They may recommend cognitive screening or additional follow-ups.</li>
                     </ul>
                     <h4 style='color: #111827;'>Why early awareness matters:</h4>
