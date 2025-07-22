@@ -422,7 +422,6 @@ If you have concerns or questions, always reach out to healthcare professionals.
 """
 
         summary_text += bonus_tip
-
         # --- Create PDF ---
         pdf_buffer = io.BytesIO()
         c = canvas.Canvas(pdf_buffer, pagesize=letter)
@@ -451,7 +450,7 @@ If you have concerns or questions, always reach out to healthcare professionals.
         text_obj.setFont("Helvetica", 10)
         text_obj.setLeading(line_height)
         for line in guidance_block.strip().split("\n"):
-            if cursor_y <= 100:  # New page if space is tight
+            if cursor_y <= 100:
                 c.drawText(text_obj)
                 c.showPage()
                 text_obj = c.beginText(margin, height - 50)
@@ -463,7 +462,7 @@ If you have concerns or questions, always reach out to healthcare professionals.
         c.drawText(text_obj)
         cursor_y -= 2 * line_height
 
-        # Insert user-uploaded image
+        # Insert uploaded image
         if cursor_y < 300:
             c.showPage()
             cursor_y = height - 50
@@ -482,22 +481,22 @@ If you have concerns or questions, always reach out to healthcare professionals.
             c.drawString(margin, cursor_y, "Error displaying uploaded image.")
             cursor_y -= 2 * line_height
 
-         # Write bonus tip to PDF with proper page overflow handling
-         bonus_lines = bonus_tip.strip().split("\n")
-         text2 = c.beginText(margin, cursor_y)
-         text2.setFont("Helvetica", 10)
-         text2.setLeading(line_height)
+        # Write bonus tip
+        bonus_lines = bonus_tip.strip().split("\n")
+        text2 = c.beginText(margin, cursor_y)
+        text2.setFont("Helvetica", 10)
+        text2.setLeading(line_height)
 
-       for line in bonus_lines:
-           if cursor_y <= 100:
-              c.drawText(text2)
-              c.showPage()
-              text2 = c.beginText(margin, height - 50)
-              text2.setFont("Helvetica", 10)
-           text2.setLeading(line_height)
-           cursor_y = height - 50
-           text2.textLine(line)
-           cursor_y -= line_height
+        for line in bonus_lines:
+            if cursor_y <= 100:
+                c.drawText(text2)
+                c.showPage()
+                text2 = c.beginText(margin, height - 50)
+                text2.setFont("Helvetica", 10)
+                text2.setLeading(line_height)
+                cursor_y = height - 50
+            text2.textLine(line)
+            cursor_y -= line_height
 
         c.drawText(text2)
         c.showPage()
@@ -512,6 +511,7 @@ If you have concerns or questions, always reach out to healthcare professionals.
             mime="application/pdf",
         )
 
+      
     except Exception as e:
         st.error(f"⚠️ Failed to open or analyze image: {e}")
         st.stop()
