@@ -336,19 +336,6 @@ if uploaded_file is not None:
     except Exception as e:
         st.error(f"⚠️ Failed to open or analyze image: {e}")
 
-# ---Upload a new drawing ---
-st.markdown(
-    """
-    <div style='margin-top: 2rem; padding: 1rem; background-color: #f0f4f8; border-radius: 12px; text-align: center;'>
-        <p style='margin-bottom: 0.5rem; font-size: 1.05rem;'>Want to try analyzing a different clock drawing?</p>
-    </div>
-    """,
-    unsafe_allow_html=True
-)
-
-if st.button("🔁 Upload a New Drawing"):
-    st.experimental_rerun()
-  
 
 
 # --- How It Works ---
