@@ -285,7 +285,7 @@ It is based on patterns seen in the clock drawing and is meant for awareness onl
         # Guidance and display
         if predicted_class.strip() == "May have Parkinson's Disease":
 guidance = """
-🧭 Your Result May Suggest Signs Related to Parkinson’s Disease
+Your Result May Suggest Signs Related to Parkinson’s Disease
 
 This result does NOT necessarily mean that you have Parkinson’s Disease.
 It simply indicates patterns that may resemble those found in some Parkinson’s cases.
