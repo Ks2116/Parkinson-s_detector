@@ -482,7 +482,7 @@ If you have concerns or questions, always reach out to healthcare professionals.
             c.drawString(margin, cursor_y, "Error displaying uploaded image.")
             cursor_y -= 2 * line_height
 
-       # Write bonus tip to PDF with proper page overflow handling
+         # Write bonus tip to PDF with proper page overflow handling
 bonus_lines = bonus_tip.strip().split("\n")
 text2 = c.beginText(margin, cursor_y)
 text2.setFont("Helvetica", 10)
@@ -500,6 +500,7 @@ for line in bonus_lines:
     cursor_y -= line_height
 
 c.drawText(text2)
+
 
 
         c.showPage()
