@@ -470,6 +470,9 @@ st.download_button(
     mime="application/pdf",
 )
 
+ except Exception as e:
+        st.error(f"⚠️ Failed to open or analyze image: {e}")
+        st.stop()
 
 # --- Feedback Section ---
 st.markdown(
