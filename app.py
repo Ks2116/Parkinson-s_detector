@@ -462,40 +462,19 @@ c.showPage()
 c.save()
 pdf_buffer.seek(0)
 
+ # PDF download button
+        st.download_button(
+            label="📄 Download Result as PDF",
+            data=pdf_buffer.getvalue(),
+            file_name="clock_test_result.pdf",
+            mime="application/pdf",
+        )
 
     except Exception as e:
         st.error(f"⚠️ Failed to open or analyze image: {e}")
         st.stop()
 
-    # --- Generate PDF with Image and Summary ---
-    pdf_buffer = io.BytesIO()
-    c = canvas.Canvas(pdf_buffer, pagesize=letter)
-
-    # Add text
-    text = c.beginText(50, 750)
-    for line in summary_text.strip().split("\n"):
-        text.textLine(line)
-    c.drawText(text)
-
-    # Add image
-    if image:
-        image_path = "/tmp/temp_image.jpg"
-        image.save(image_path)
-        try:
-            c.drawImage(image_path, 50, 300, width=300, preserveAspectRatio=True, mask='auto')
-        except Exception as e:
-            st.warning(f"Image could not be added to PDF: {e}")
-
-    c.showPage()
-    c.save()
-
-    # PDF download button
-    st.download_button(
-        label="📄 Download Result as PDF",
-        data=pdf_buffer.getvalue(),
-        file_name="clock_test_result.pdf",
-        mime="application/pdf",
-    )
+    
 
 # --- Feedback Section ---
 st.markdown(
