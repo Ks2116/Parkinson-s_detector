@@ -4,6 +4,7 @@ import numpy as np
 import tensorflow.keras as keras
 import os
 import time
+from datetime import datetime
 
 # --- Configuration ---
 MODEL_PATH = "keras_model.h5"
@@ -263,7 +264,6 @@ if uploaded_file is not None:
         st.success(f"**Prediction:** {predicted_class}")
         st.info(f"**The system is {confidence_score:.0%} confident in this result.**")
 
-from datetime import datetime
 
 # Get current date/time
 now = datetime.now().strftime("%Y-%m-%d %H:%M")
