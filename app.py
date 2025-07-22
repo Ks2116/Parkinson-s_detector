@@ -369,7 +369,7 @@ st.markdown("""
         If you’ve just used the app, please take a moment to complete our short feedback form.
     </p>
     <a href='https://docs.google.com/forms/d/1SbZXHxdveEXCWB0oYYqg_Vx_x2CtuO7o8zQrDc2Lf5w' target='_blank' style='text-decoration: none; font-weight: 500; color: #2563eb;'>👉 Click here to provide feedback</a>
-    <p style='color: #6B7280; font-size: 0.95rem; margin-top: 1rem;'>Thank you for supporting the development of accessible health screening tools.</p>
+    <p style='color: #6B7280; font-size: 0.95rem; margin-top: 1rem;'>We appreciate your time and feedback as we continue to improve this screening tool.</p>
 </div>
 """, unsafe_allow_html=True)
 
