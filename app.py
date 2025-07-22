@@ -507,9 +507,8 @@ st.download_button(
     file_name="clock_test_result.pdf",
     mime="application/pdf",
 )
-
-
-    except Exception as e:
+ 
+except Exception as e:
         st.error(f"⚠️ Failed to open or analyze image: {e}")
         st.stop()
 
