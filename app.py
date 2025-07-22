@@ -285,12 +285,12 @@ It is based on patterns seen in the clock drawing and is meant for awareness onl
         # Guidance and display
         if predicted_class.strip() == "May have Parkinson's Disease":
 guidance = """
-Your Result May Suggest Signs Related to Parkinson’s Disease
+Your Result May Suggest Signs Related to Parkinson's Disease
 
-This result does NOT necessarily mean that you have Parkinson’s Disease.
-It simply indicates patterns that may resemble those found in some Parkinson’s cases.
+This result does NOT necessarily mean that you have Parkinson's Disease.
+It simply indicates patterns that may resemble those found in some Parkinson's cases.
 
-Here’s what you can do next:
+Here's what you can do next:
 - Stay calm — this is only a screening tool, not a diagnosis.
 - Consider consulting a neurologist or primary care doctor.
 - Further testing like motor assessments or brain imaging may be recommended.
@@ -326,12 +326,12 @@ This tool is a first step — following up with a doctor can bring peace of mind
 
         elif predicted_class.strip() == "May have Alzheimer's Disease":
             guidance = """
-🧭 Your Result May Suggest Patterns Linked to Alzheimer’s Disease
+🧭 Your Result May Suggest Patterns Linked to Alzheimer's Disease
 
-This result does NOT confirm Alzheimer’s.
-It only points to some signs that may resemble those found in Alzheimer’s-related drawings.
+This result does NOT confirm Alzheimer's.
+It only points to some signs that may resemble those found in Alzheimer's-related drawings.
 
-Here’s what you can do next:
+Here's what you can do next:
 - Stay calm — this is just an early suggestion, not a diagnosis.
 - Consider consulting with a doctor or memory specialist.
 - They may recommend cognitive screening or additional follow-ups.
@@ -340,7 +340,7 @@ Why early awareness matters:
 - It supports peace of mind and informed decisions.
 - Even brief medical input can be empowering and helpful.
 
-You're being proactive about your cognitive health — that’s a great first step.
+You're being proactive about your cognitive health — that's a great first step.
 """
             guidance_block = guidance
             st.warning("This drawing may show signs of Alzheimer's disease. Consider consulting a doctor.")
@@ -366,7 +366,7 @@ Try uploading a new image that follows the drawing instructions carefully.
 
 No unusual signs were detected in this drawing.
 
-Still, if you ever feel unsure or notice changes in thinking, memory, or coordination, it’s perfectly okay to speak with a healthcare provider.
+Still, if you ever feel unsure or notice changes in thinking, memory, or coordination, it's perfectly okay to speak with a healthcare provider.
 
 Regular checkups and awareness of cognitive health are always encouraged.
 """
