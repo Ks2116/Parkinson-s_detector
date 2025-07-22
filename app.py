@@ -263,6 +263,29 @@ if uploaded_file is not None:
         st.success(f"**Prediction:** {predicted_class}")
         st.info(f"**The system is {confidence_score:.0%} confident in this result.**")
 
+      # --- Downloadable Summary ---
+summary_text = f"""
+Parkinson's Clock Test Result
+
+Prediction: {predicted_class}
+Confidence: {confidence_score:.0%}
+
+Note:
+This result does NOT confirm a medical diagnosis.
+It is based on patterns seen in the clock drawing and is meant for awareness only.
+
+Recommended:
+- Consult a medical professional if you have concerns
+- Consider follow-up tests or cognitive evaluations
+"""
+
+st.download_button(
+    label="📄 Download Result Summary",
+    data=summary_text,
+    file_name="clock_test_result.txt",
+    mime="text/plain"
+)
+
         st.markdown("---")
 
         # --- Parkinson's Guidance ---
@@ -349,28 +372,6 @@ st.markdown(
 if st.button("🔁 Upload a New Drawing"):
     st.experimental_rerun()
   
-# --- Downloadable Summary ---
-summary_text = f"""
-Parkinson's Clock Test Result
-
-Prediction: {predicted_class}
-Confidence: {confidence_score:.0%}
-
-Note:
-This result does NOT confirm a medical diagnosis.
-It is based on patterns seen in the clock drawing and is meant for awareness only.
-
-Recommended:
-- Consult a medical professional if you have concerns
-- Consider follow-up tests or cognitive evaluations
-"""
-
-st.download_button(
-    label="📄 Download Result Summary",
-    data=summary_text,
-    file_name="clock_test_result.txt",
-    mime="text/plain"
-)
 
 
 # --- How It Works ---
