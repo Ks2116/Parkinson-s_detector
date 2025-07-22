@@ -14,22 +14,24 @@ IMAGE_SIZE = (224, 224)
 st.set_page_config(page_title="Parkinson's Clock Test", layout="centered")
 
 # --- Validation Disclaimer at the Top ---
-st.warning("⚠️ This application has not been clinically validated. Results must not be used as a substitute for a professional medical diagnosis.")
+st.warning("\u26a0\ufe0f This application has not been clinically validated. Results must not be used as a substitute for a professional medical diagnosis.")
 
-# --- Subtle Professional Styling ---
+# --- Styling and Wave Background ---
 st.markdown("""
 <style>
 @keyframes slowGradientShift {
   0% { background-position: 0% 50%; }
+  25% { background-position: 50% 50%; }
   50% { background-position: 100% 50%; }
+  75% { background-position: 50% 50%; }
   100% { background-position: 0% 50%; }
 }
 
 html, body, .stApp {
     background: linear-gradient(200deg, #eef6fa, #40E0D0, #F4F5F0, #f8fbfe, #e9f3f7, #f6f9fc, #FFFFFF);
-    background-size: 300% 300%;
+    background-size: 400% 400%;
     background-attachment: fixed;
-    animation: slowGradientShift 4s ease infinite;
+    animation: slowGradientShift 12s ease-in-out infinite;
     font-family: 'Segoe UI', sans-serif;
     color: #355c60;
     padding: 2rem 10vw 5rem 10vw;
@@ -41,83 +43,6 @@ html[data-theme="dark"], body[data-theme="dark"], .stApp[data-theme="dark"] {
     color: #f0f0f0 !important;
 }
 
-.card {
-    background-color: white;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-    margin-bottom: 2rem;
-}
-
-.banner {
-    background: linear-gradient(135deg, #91c8ea, #d4eefc);
-    color: #fff;
-    text-align: center;
-    padding: 2.5rem 1rem;
-    border-radius: 16px;
-    box-shadow: 0 12px 24px rgba(0,0,0,0.08);
-    margin-bottom: 3rem;
-}
-
-h1 {
-    font-size: 2.6rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-}
-h2, h3 {
-    color: #37474f;
-    font-weight: 600;
-    margin-top: 2rem;
-}
-
-p, li {
-    font-size: 1.05rem;
-    line-height: 1.6;
-    color: #263238;
-}
-
-img {
-    border-radius: 12px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.05);
-}
-
-[data-testid="stFileUploader"] {
-    border: 2px dashed #90caf9;
-    border-radius: 12px;
-    padding: 1.5rem;
-    background-color: rgba(255,255,255,0.97);
-    margin-bottom: 1.5rem;
-}
-
-.disclaimer {
-    font-size: 0.9rem;
-    color: #607d8b;
-    margin-top: 4rem;
-    text-align: center;
-}
-
-st.markdown("""
-<style>
-/* Remove the PNG background, focus on SVG wave */
-html, body, .stApp {
-    background: linear-gradient(200deg, #eef6fa, #F4F5F0, #f8fbfe, #e9f3f7, #f6f9fc, #FFFFFF);
-    background-size: 300% 300%;
-    background-attachment: fixed;
-    animation: slowGradientShift 20s ease infinite;
-    font-family: 'Segoe UI', sans-serif;
-    color: #355c60;
-    padding: 2rem 10vw 5rem 10vw;
-    box-sizing: border-box;
-}
-
-/* Gradient animation */
-@keyframes slowGradientShift {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* Wave container */
 .wave-container {
   position: fixed;
   bottom: 0;
@@ -128,16 +53,15 @@ html, body, .stApp {
   overflow: hidden;
 }
 
-/* Animate the SVG path */
 .wave-container svg {
-  width: 200%;
-  height: 100%;
-  animation: waveMotion 10s ease-in-out infinite;
+  width: 300%;
+  height: 120%;
+  animation: waveMotion 6s ease-in-out infinite;
 }
 
 @keyframes waveMotion {
   0%   { transform: translateX(0); }
-  50%  { transform: translateX(-25%); }
+  50%  { transform: translateX(-30%); }
   100% { transform: translateX(0); }
 }
 </style>
@@ -146,7 +70,7 @@ html, body, .stApp {
 <div class="wave-container">
 <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
   <path d="M0,40 C300,80 900,0 1200,40 L1200,120 L0,120 Z" 
-        fill="#40E0D0" opacity="0.35">
+        fill="#40E0D0" opacity="0.45">
     <animateTransform attributeName="transform"
                       attributeType="XML"
                       type="translate"
@@ -157,6 +81,7 @@ html, body, .stApp {
 </svg>
 </div>
 """, unsafe_allow_html=True)
+
 
 
 # --- Load Model ---
