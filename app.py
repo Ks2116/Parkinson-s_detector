@@ -422,46 +422,70 @@ If you have concerns or questions, always reach out to healthcare professionals.
 """
         summary_text += bonus_tip
 
-        # --- Create PDF ---
+# --- Create PDF with adjusted layout ---
+pdf_buffer = io.BytesIO()
+c = canvas.Canvas(pdf_buffer, pagesize=letter)
+width, height = letter
 
-        pdf_buffer = io.BytesIO()
-        c = canvas.Canvas(pdf_buffer, pagesize=letter)
-        width, height = letter
+# Title and meta info
+c.setFont("Helvetica-Bold", 16)
+c.drawString(50, height - 50, "Parkinson's Clock Drawing Test Result")
 
-        c.setFont("Helvetica-Bold", 16)
-        c.drawString(50, height - 50, "🧠 Parkinson's Clock Drawing Test Result")
+c.setFont("Helvetica", 10)
+c.drawString(50, height - 70, f"Date: {singapore_time}")
+c.drawString(50, height - 90, f"Prediction: {predicted_class}")
+c.drawString(50, height - 110, f"Confidence: {confidence_score:.0%}")
 
-        c.setFont("Helvetica", 10)
-        c.drawString(50, height - 70, f"Date: {singapore_time}")
-        c.drawString(50, height - 90, f"Prediction: {predicted_class}")
-        c.drawString(50, height - 110, f"Confidence: {confidence_score:.0%}")
+# Write guidance text
+text_y = height - 140
+text_obj = c.beginText(50, text_y)
+text_obj.setFont("Helvetica", 10)
+text_obj.setLeading(14)
 
-        # Guidance text
-        text_obj = c.beginText(50, height - 150)
+# Add guidance lines, track text height
+for line in guidance_block.split("\n"):
+    if text_y < 150:  # Not enough space for image and bonus tip
+        c.drawText(text_obj)
+        c.showPage()
+        text_y = height - 50
+        text_obj = c.beginText(50, text_y)
         text_obj.setFont("Helvetica", 10)
         text_obj.setLeading(14)
-        for line in guidance_block.split("\n"):
-            text_obj.textLine(line)
-        c.drawText(text_obj)
+    text_obj.textLine(line)
+    text_y -= 14
 
-        # Image in PDF
-        img_buffer = io.BytesIO()
-        image.convert("RGB").save(img_buffer, format="PNG")
-        img_buffer.seek(0)
-        c.drawImage(ImageReader(img_buffer), 50, height - 450, width=200, preserveAspectRatio=True)
+c.drawText(text_obj)
 
-        # Bonus tip text
-        text2 = c.beginText(50, height - 480)
-        text2.setFont("Helvetica", 10)
-        text2.setLeading(14)
-        for line in bonus_tip.split("\n"):
-            text2.textLine(line)
-        c.drawText(text2)
+# Insert image *below* text (on next page if needed)
+if text_y < 250:
+    c.showPage()
+    image_y = height - 100
+else:
+    image_y = text_y - 220
 
-        c.showPage()
-        c.save()
-        pdf_buffer.seek(0)
+img_buffer = io.BytesIO()
+image.convert("RGB").save(img_buffer, format="PNG")
+img_buffer.seek(0)
+c.drawImage(ImageReader(img_buffer), 50, image_y, width=200, preserveAspectRatio=True, mask='auto')
 
+# Write bonus tip below image (on next page if not enough space)
+bonus_start_y = image_y - 160
+if bonus_start_y < 100:
+    c.showPage()
+    bonus_start_y = height - 100
+
+bonus_text = c.beginText(50, bonus_start_y)
+bonus_text.setFont("Helvetica", 10)
+bonus_text.setLeading(14)
+for line in bonus_tip.strip().split("\n"):
+    bonus_text.textLine(line)
+c.drawText(bonus_text)
+
+c.showPage()
+c.save()
+pdf_buffer.seek(0)
+
+        
         # PDF download button
         st.download_button(
             label="📄 Download Result as PDF",
