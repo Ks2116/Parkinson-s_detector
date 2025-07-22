@@ -5,6 +5,8 @@ import tensorflow.keras as keras
 import os
 import time
 from datetime import datetime
+import pytz
+singapore_time = datetime.now(pytz.timezone('Asia/Singapore')).strftime("%Y-%m-%d %H:%M")
 
 # --- Configuration ---
 MODEL_PATH = "keras_model.h5"
@@ -268,7 +270,7 @@ if uploaded_file is not None:
         now = datetime.now().strftime("%Y-%m-%d %H:%M")
         summary_text = f"""
 Parkinson's Clock Test Result
-Date: {now}
+Date: {singapore_time}
 
 Prediction: {predicted_class}
 Confidence: {confidence_score:.0%}
@@ -357,6 +359,19 @@ It is based on patterns seen in the clock drawing and is meant for awareness onl
     except Exception as e:
         st.error(f"⚠️ Failed to open or analyze image: {e}")
         st.stop()
+      
+# --- Feedback Section ---
+st.markdown("""
+<div style='padding: 1.5rem; border-radius: 15px; background-color: #f9fafb; border: 1px solid #e5e7eb; margin-top: 2rem;'>
+    <h4 style='color: #111827;'>📋 We’d Appreciate Your Feedback</h4>
+    <p style='color: #4B5563; font-size: 1.05rem;'>
+        Your input helps us improve the quality and clarity of this tool.<br>
+        If you’ve just used the app, please take a moment to complete our short feedback form.
+    </p>
+    <a href='https://docs.google.com/forms/d/1SbZXHxdveEXCWB0oYYqg_Vx_x2CtuO7o8zQrDc2Lf5w' target='_blank' style='text-decoration: none; font-weight: 500; color: #2563eb;'>👉 Click here to provide feedback</a>
+    <p style='color: #6B7280; font-size: 0.95rem; margin-top: 1rem;'>Thank you for supporting the development of accessible health screening tools.</p>
+</div>
+""", unsafe_allow_html=True)
 
 
 # --- How It Works ---
