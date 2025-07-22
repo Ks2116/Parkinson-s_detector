@@ -418,13 +418,58 @@ If you have concerns or questions, always reach out to healthcare professionals.
 """
         summary_text += bonus_tip
 
-        # Download button
-        st.download_button(
-            label="📄 Download Result Summary",
-            data=summary_text,
-            file_name="clock_test_result.txt",
-            mime="text/plain",
-        )
+   # --- Create PDF ---
+import io
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter
+from reportlab.lib.utils import ImageReader
+
+pdf_buffer = io.BytesIO()
+c = canvas.Canvas(pdf_buffer, pagesize=letter)
+width, height = letter
+
+c.setFont("Helvetica-Bold", 16)
+c.drawString(50, height - 50, "🧠 Parkinson's Clock Drawing Test Result")
+
+c.setFont("Helvetica", 10)
+c.drawString(50, height - 70, f"Date: {singapore_time}")
+c.drawString(50, height - 90, f"Prediction: {predicted_class}")
+c.drawString(50, height - 110, f"Confidence: {confidence_score:.0%}")
+
+# Guidance
+text_obj = c.beginText(50, height - 150)
+text_obj.setFont("Helvetica", 10)
+text_obj.setLeading(14)
+for line in guidance_block.split("\n"):
+    text_obj.textLine(line)
+c.drawText(text_obj)
+
+# Image
+img_buffer = io.BytesIO()
+image.convert("RGB").save(img_buffer, format="PNG")
+img_buffer.seek(0)
+c.drawImage(ImageReader(img_buffer), 50, height - 450, width=200, preserveAspectRatio=True)
+
+# Bonus Tip
+text2 = c.beginText(50, height - 480)
+text2.setFont("Helvetica", 10)
+text2.setLeading(14)
+for line in bonus_tip.split("\n"):
+    text2.textLine(line)
+c.drawText(text2)
+
+c.showPage()
+c.save()
+pdf_buffer.seek(0)
+
+# --- Download PDF Button ---
+st.download_button(
+    label="📄 Download PDF Summary",
+    data=pdf_buffer,
+    file_name="clock_test_result.pdf",
+    mime="application/pdf"
+)
+
 
     except Exception as e:
         st.error(f"⚠️ Failed to open or analyze image: {e}")
