@@ -488,6 +488,8 @@ If you have concerns or questions, always reach out to healthcare professionals.
         text2.setLeading(line_height)
 
         for line in bonus_lines:
+             wrapped_lines = wrap(line, width=90)  # Wrap lines to fit page
+        for wline in wrapped_lines:
             if cursor_y <= 100:
                 c.drawText(text2)
                 c.showPage()
