@@ -263,39 +263,95 @@ if uploaded_file is not None:
         st.success(f"**Prediction:** {predicted_class}")
         st.info(f"**The system is {confidence_score:.0%} confident in this result.**")
 
-        summary_text = f"""
-        Parkinson's Clock Test Result
+  from datetime import datetime
 
-        Prediction: {predicted_class}
-        Confidence: {confidence_score:.0%}
+# Get current date/time
+now = datetime.now().strftime("%Y-%m-%d %H:%M")
 
-        Note:
-        This result does NOT confirm a medical diagnosis.
-        It is based on patterns seen in the clock drawing and is meant for awareness only.
+# Build summary
+summary_text = f"""
+Parkinson's Clock Test Result
+Date: {now}
 
-        Recommended:
-        - Consult a medical professional if you have concerns
-        - Consider follow-up tests or cognitive evaluations
-        """
+Prediction: {predicted_class}
+Confidence: {confidence_score:.0%}
 
-        st.download_button(
-            label="📄 Download Result Summary",
-            data=summary_text,
-            file_name="clock_test_result.txt",
-            mime="text/plain"
-        )
+Note:
+This result does NOT confirm a medical diagnosis.
+It is based on patterns seen in the clock drawing and is meant for awareness only.
 
-        st.markdown(
-            """
-            <div style='margin-top: 2rem; padding: 1rem; background-color: #f0f4f8; border-radius: 12px; text-align: center;'>
-                <p style='margin-bottom: 0.5rem; font-size: 1.05rem;'>Want to try analyzing a different clock drawing?</p>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
+"""
 
-        if st.button("🔁 Upload a New Drawing"):
-            st.experimental_rerun()
+# Add the appropriate guidance based on result
+if predicted_class.strip() == "May have Parkinson's Disease":
+    summary_text += """
+🧭 Your Result May Suggest Signs Related to Parkinson’s Disease
+
+This result does NOT necessarily mean that you have Parkinson’s Disease.
+It simply indicates patterns that may resemble those found in some Parkinson’s cases.
+
+Here’s what you can do next:
+- Stay calm — this is only a screening tool, not a diagnosis.
+- Consider consulting a neurologist or primary care doctor.
+- Further testing like motor assessments or brain imaging may be recommended.
+
+Why a check-in could help:
+- It can clarify things and reduce unnecessary worry.
+- Early professional advice is valuable, even if everything turns out fine.
+
+This tool is a first step — following up with a doctor can bring peace of mind.
+"""
+
+elif predicted_class.strip() == "May have Alzheimer's Disease":
+    summary_text += """
+🧭 Your Result May Suggest Patterns Linked to Alzheimer’s Disease
+
+This result does NOT confirm Alzheimer’s.
+It only points to some signs that may resemble those found in Alzheimer’s-related drawings.
+
+Here’s what you can do next:
+- Stay calm — this is just an early suggestion, not a diagnosis.
+- Consider consulting with a doctor or memory specialist.
+- They may recommend cognitive screening or additional follow-ups.
+
+Why early awareness matters:
+- It supports peace of mind and informed decisions.
+- Even brief medical input can be empowering and helpful.
+
+You're being proactive about your cognitive health — that’s a great first step.
+"""
+
+elif predicted_class.strip() == "Invalid Input":
+    summary_text += """
+⚠️ The uploaded image is not a valid clock drawing.
+
+Please ensure that:
+- The clock includes all numbers from 1 to 12.
+- The hands are showing exactly 7 o'clock.
+- The drawing is clear, well-lit, and not blurry or distorted.
+
+Try uploading a new image that follows the drawing instructions carefully.
+"""
+
+else:  # Typical / Healthy
+    summary_text += """
+✅ This Clock Drawing Appears Typical
+
+No unusual signs were detected in this drawing.
+
+Still, if you ever feel unsure or notice changes in thinking, memory, or coordination, it’s perfectly okay to speak with a healthcare provider.
+
+Regular checkups and awareness of cognitive health are always encouraged.
+"""
+
+# Download Button
+st.download_button(
+    label="📄 Download Result Summary",
+    data=summary_text,
+    file_name="clock_test_result.txt",
+    mime="text/plain"
+)
+
 
         st.markdown("---")
 
