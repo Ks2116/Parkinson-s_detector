@@ -263,7 +263,117 @@ if uploaded_file is not None:
 
         st.success(f"**Prediction:** {predicted_class}")
         st.info(f"**The system is {confidence_score:.0%} confident in this result.**")
+      
+# --- Get current date/time ---
+        now = datetime.now().strftime("%Y-%m-%d %H:%M")
 
+# --- Build summary text with guidance included ---
+        summary_text = f"""
+Parkinson's Clock Test Result
+Date: {now}
+
+Prediction: {predicted_class}
+Confidence: {confidence_score:.0%}
+
+Note:
+This result does NOT confirm a medical diagnosis.
+It is based on patterns seen in the clock drawing and is meant for awareness only.
+
+"""
+
+        # Append guidance based on predicted_class exactly like shown below:
+        if predicted_class.strip() == "May have Parkinson's Disease":
+            guidance = """
+🧭 Your Result May Suggest Signs Related to Parkinson’s Disease
+
+This result does NOT necessarily mean that you have Parkinson’s Disease.
+It simply indicates patterns that may resemble those found in some Parkinson’s cases.
+
+Here’s what you can do next:
+- Stay calm — this is only a screening tool, not a diagnosis.
+- Consider consulting a neurologist or primary care doctor.
+- Further testing like motor assessments or brain imaging may be recommended.
+
+Why a check-in could help:
+- It can clarify things and reduce unnecessary worry.
+- Early professional advice is valuable, even if everything turns out fine.
+
+This tool is a first step — following up with a doctor can bring peace of mind.
+"""
+            summary_text += guidance
+
+            st.warning("This drawing may show signs of Parkinson's disease. Please consult a medical professional.")
+            st.markdown(f"<div style='padding: 1rem; background-color:#f3f4f6; border-radius: 15px;'>{guidance.replace(chr(10), '<br>')}</div>", unsafe_allow_html=True)
+
+        elif predicted_class.strip() == "May have Alzheimer's Disease":
+            guidance = """
+🧭 Your Result May Suggest Patterns Linked to Alzheimer’s Disease
+
+This result does NOT confirm Alzheimer’s.
+It only points to some signs that may resemble those found in Alzheimer’s-related drawings.
+
+Here’s what you can do next:
+- Stay calm — this is just an early suggestion, not a diagnosis.
+- Consider consulting with a doctor or memory specialist.
+- They may recommend cognitive screening or additional follow-ups.
+
+Why early awareness matters:
+- It supports peace of mind and informed decisions.
+- Even brief medical input can be empowering and helpful.
+
+You're being proactive about your cognitive health — that’s a great first step.
+"""
+            summary_text += guidance
+
+            st.warning("This drawing may show signs of Alzheimer's disease. Consider consulting a doctor.")
+            st.markdown(f"<div style='padding: 1rem; background-color:#f3f4f6; border-radius: 15px;'>{guidance.replace(chr(10), '<br>')}</div>", unsafe_allow_html=True)
+
+        elif predicted_class.strip() == "Invalid Input":
+            guidance = """
+⚠️ The uploaded image is not a valid clock drawing.
+
+Please ensure that:
+- The clock includes all numbers from 1 to 12.
+- The hands are showing exactly 7 o'clock.
+- The drawing is clear, well-lit, and not blurry or distorted.
+
+Try uploading a new image that follows the drawing instructions carefully.
+"""
+            summary_text += guidance
+            st.error("The uploaded image is not a valid clock drawing. Please upload a clear and complete one.")
+
+        else:
+            guidance = """
+✅ This Clock Drawing Appears Typical
+
+No unusual signs were detected in this drawing.
+
+Still, if you ever feel unsure or notice changes in thinking, memory, or coordination, it’s perfectly okay to speak with a healthcare provider.
+
+Regular checkups and awareness of cognitive health are always encouraged.
+"""
+            summary_text += guidance
+            st.success("This clock drawing appears typical. No unusual signs were detected.")
+
+        # Add bonus tip to summary
+        bonus_tip = """
+---
+
+💡 Bonus Tip:
+
+Regardless of the result, maintaining a healthy lifestyle including regular exercise, balanced diet, mental stimulation, and social interaction supports brain health.
+
+If you have concerns or questions, always reach out to healthcare professionals.
+"""
+        summary_text += bonus_tip
+
+        # Download Button with full summary including guidance and bonus tip
+        st.download_button(
+            label="📄 Download Result Summary",
+            data=summary_text,
+            file_name="clock_test_result.txt",
+            mime="text/plain"
+        )
 
         st.markdown("---")
 
