@@ -444,25 +444,25 @@ for line in guidance_block.split("\n"):
     text_obj.textLine(line)
 c.drawText(text_obj)
 
-# Image
-img_buffer = io.BytesIO()
-image.convert("RGB").save(img_buffer, format="PNG")
-img_buffer.seek(0)
-c.drawImage(ImageReader(img_buffer), 50, height - 450, width=200, preserveAspectRatio=True)
+  # Image in PDF
+        img_buffer = io.BytesIO()
+        image.convert("RGB").save(img_buffer, format="PNG")
+        img_buffer.seek(0)
+        c.drawImage(ImageReader(img_buffer), 50, height - 450, width=200, preserveAspectRatio=True)
 
-# Bonus Tip
-text2 = c.beginText(50, height - 480)
-text2.setFont("Helvetica", 10)
-text2.setLeading(14)
-for line in bonus_tip.split("\n"):
-    text2.textLine(line)
-c.drawText(text2)
+        # Bonus tip text
+        text2 = c.beginText(50, height - 480)
+        text2.setFont("Helvetica", 10)
+        text2.setLeading(14)
+        for line in bonus_tip.split("\n"):
+            text2.textLine(line)
+        c.drawText(text2)
 
-c.showPage()
-c.save()
-pdf_buffer.seek(0)
+        c.showPage()
+        c.save()
+        pdf_buffer.seek(0)
 
- # PDF download button
+        # PDF download button
         st.download_button(
             label="📄 Download Result as PDF",
             data=pdf_buffer.getvalue(),
@@ -473,7 +473,6 @@ pdf_buffer.seek(0)
     except Exception as e:
         st.error(f"⚠️ Failed to open or analyze image: {e}")
         st.stop()
-
     
 
 # --- Feedback Section ---
