@@ -130,6 +130,63 @@ img {
 
 st.markdown('<div class="wave-background"></div>', unsafe_allow_html=True)
 
+st.markdown("""
+<style>
+/* 1. Animated Gradient Background */
+html, body, .stApp {
+    background: linear-gradient(200deg, #eef6fa, #40E0D0, #F4F5F0, #f8fbfe, #e9f3f7, #f6f9fc, #FFFFFF);
+    background-size: 300% 300%;
+    background-attachment: fixed;
+    animation: slowGradientShift 15s ease infinite;
+    font-family: 'Segoe UI', sans-serif;
+    color: #355c60;
+    padding: 2rem 10vw 5rem 10vw;
+    box-sizing: border-box;
+}
+
+/* 2. Gradient animation keyframes */
+@keyframes slowGradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* 3. Wave overlay (SVG animated) */
+.wave-bg-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.wave {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background: url("https://raw.githubusercontent.com/anars/blank-audio/master/waves/turquoise-waves.svg");
+  background-size: cover;
+  animation: waveMovement 40s linear infinite;
+  opacity: 0.1;
+}
+
+@keyframes waveMovement {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+</style>
+
+<!-- Wave overlay container -->
+<div class="wave-bg-wrapper">
+  <div class="wave"></div>
+</div>
+""", unsafe_allow_html=True)
+
+
 # --- Load Model ---
 @st.cache_resource
 def load_model():
