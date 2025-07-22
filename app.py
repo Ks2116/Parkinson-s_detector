@@ -6,6 +6,7 @@ import os
 import time
 from datetime import datetime
 import pytz
+
 singapore_time = datetime.now(pytz.timezone('Asia/Singapore')).strftime("%Y-%m-%d %H:%M")
 
 # --- Configuration ---
@@ -17,10 +18,13 @@ IMAGE_SIZE = (224, 224)
 st.set_page_config(page_title="Parkinson's Clock Test", layout="centered")
 
 # --- Validation Disclaimer at the Top ---
-st.warning("⚠️ This application has not been clinically validated. Results must not be used as a substitute for a professional medical diagnosis.")
+st.warning(
+    "⚠️ This application has not been clinically validated. Results must not be used as a substitute for a professional medical diagnosis."
+)
 
 # --- Subtle Professional Styling ---
-st.markdown("""
+st.markdown(
+    """
 <style>
 @keyframes slowGradientShift {
   0% { background-position: 0% 50%; }
@@ -138,9 +142,9 @@ img {
   </path>
 </svg>
 </div>
-""", unsafe_allow_html=True)
-
-
+""",
+    unsafe_allow_html=True,
+)
 
 
 # --- Load Model ---
@@ -155,6 +159,7 @@ def load_model():
         st.error(f"Error loading model: {e}")
         return None
 
+
 # --- Load Labels ---
 @st.cache_data
 def load_labels():
@@ -168,6 +173,7 @@ def load_labels():
         st.error(f"Error loading labels: {e}")
         return None
 
+
 # --- Preprocess Image ---
 def preprocess_image(image):
     if image.mode != "RGB":
@@ -176,6 +182,7 @@ def preprocess_image(image):
     image_array = np.asarray(image)
     normalized = (image_array.astype(np.float32) / 127.0) - 1
     return np.expand_dims(normalized, axis=0)
+
 
 # --- Predict ---
 def predict_parkinsons(image, model, class_names):
@@ -186,12 +193,17 @@ def predict_parkinsons(image, model, class_names):
     index = np.argmax(prediction)
     return class_names[index], prediction[0][index]
 
+
 # --- Banner ---
-st.markdown('<div class="banner"><h1>Parkinson\'s Disease Detector</h1><p>AI-powered tool for analyzing clock drawings</p></div>', unsafe_allow_html=True)
+st.markdown(
+    '<div class="banner"><h1>Parkinson\'s Disease Detector</h1><p>AI-powered tool for analyzing clock drawings</p></div>',
+    unsafe_allow_html=True,
+)
 
 st.markdown("### What is the Clock Drawing Test?")
 
-st.markdown("""
+st.markdown(
+    """
 The **Clock Drawing Test** is a widely used screening tool that helps check how well a person's brain is working. It usually involves drawing an analog clock showing a specific time — such as **7 o'clock** — with all the numbers and the clock hands in the right places.
 
 This task may seem simple, but it actually involves several mental skills, such as:
@@ -210,11 +222,16 @@ While the Clock Drawing Test alone can't diagnose these conditions, it can give 
 
  **Want to learn more?**  
 You can read more about the Clock Drawing Test from a trusted health source [here](https://pmc.ncbi.nlm.nih.gov/articles/PMC5619222/)
-""")
+"""
+)
 
 # --- Drawing Instructions ---
-st.markdown("""<hr style="border: 1px solid #dcdcdc; margin-top: 2rem; margin-bottom: 1rem;">""", unsafe_allow_html=True)
-st.markdown("""
+st.markdown(
+    """<hr style="border: 1px solid #dcdcdc; margin-top: 2rem; margin-bottom: 1rem;">""",
+    unsafe_allow_html=True,
+)
+st.markdown(
+    """
 <div style='background-color: #ffffff; padding: 1.5rem; border-radius: 16px; box-shadow: 0 6px 12px rgba(0,0,0,0.05);'>
 <h3 style='margin-top: 0;'>Drawing Instructions</h3>
 <ul>
@@ -225,23 +242,28 @@ st.markdown("""
   <li>If drawn on paper, take a clear, well-lit photo with no shadows or blur.</li>
 </ul>
 </div>
-""", unsafe_allow_html=True)
+""",
+    unsafe_allow_html=True,
+)
 
 # --- Example Clock ---
 st.markdown("### Example Clock Drawing")
 try:
     img = Image.open("clock_example.png")
     st.image(img, caption="Sample Clock Drawing (7 o'clock)", width=220)
-except:
+except Exception:
     st.warning("Example image not found. Please place 'clock_example.png' in the same folder.")
 
 # --- Upload Drawing ---
-st.markdown("""
+st.markdown(
+    """
 <div style='background-color: #ffffff; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.04); margin-top: 2rem;'>
 <h3 style='margin-top: 0;'>Upload Your Clock Drawing</h3>
 <p style='margin-bottom: 1rem;'>Please upload a clear photo of a hand-drawn analog clock showing <strong>7 o'clock</strong>. Ensure the image is well-lit and free of shadows.</p>
 </div>
-""", unsafe_allow_html=True)
+""",
+    unsafe_allow_html=True,
+)
 
 uploaded_file = st.file_uploader("Upload Image", type=["jpg", "jpeg", "png"])
 
@@ -266,8 +288,7 @@ if uploaded_file is not None:
         st.success(f"**Prediction:** {predicted_class}")
         st.info(f"**The system is {confidence_score:.0%} confident in this result.**")
 
-            # Prepare summary text
-        now = datetime.now().strftime("%Y-%m-%d %H:%M")
+        # Prepare summary text
         summary_text = f"""
 Parkinson's Clock Test Result
 Date: {singapore_time}
@@ -279,12 +300,13 @@ Note:
 This result does NOT confirm a medical diagnosis.
 It is based on patterns seen in the clock drawing and is meant for awareness only.
 
-""
+"""
+
         guidance_block = ""
 
         # Guidance and display
         if predicted_class.strip() == "May have Parkinson's Disease":
-guidance = """
+            guidance = """
 Your Result May Suggest Signs Related to Parkinson's Disease
 
 This result does NOT necessarily mean that you have Parkinson's Disease.
@@ -302,8 +324,11 @@ Why a check-in could help:
 This tool is a first step — following up with a doctor can bring peace of mind.
 """
             guidance_block = guidance
-            st.warning("This drawing may show signs of Parkinson's disease. Please consult a medical professional.")
-            st.markdown(f"""<div style='padding: 1.5rem; border-radius: 15px; background-color: #f3f4f6; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);'>
+            st.warning(
+                "This drawing may show signs of Parkinson's disease. Please consult a medical professional."
+            )
+            st.markdown(
+                f"""<div style='padding: 1.5rem; border-radius: 15px; background-color: #f3f4f6; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);'>
                 <h3 style='color: #374151;'>🧭 Your Result May Suggest Signs Related to Parkinson’s Disease</h3>
                 <p style='font-size: 1.05rem; color: #4B5563;'>
                     This result does <strong>Not Necessarily</strong> mean that you have Parkinson’s Disease. It simply indicates patterns that <em>may</em> resemble those found in some Parkinson’s cases.
@@ -322,7 +347,9 @@ This tool is a first step — following up with a doctor can bring peace of mind
                 <p style='margin-top: 1rem; font-size: 0.95rem; color: #6B7280;'>
                     This tool is a first step — following up with a doctor can bring peace of mind.
                 </p>
-            </div>""", unsafe_allow_html=True)
+            </div>""",
+                unsafe_allow_html=True,
+            )
 
         elif predicted_class.strip() == "May have Alzheimer's Disease":
             guidance = """
@@ -344,7 +371,10 @@ You're being proactive about your cognitive health — that's a great first step
 """
             guidance_block = guidance
             st.warning("This drawing may show signs of Alzheimer's disease. Consider consulting a doctor.")
-            st.markdown(f"<div style='padding: 1.5rem; border-radius: 15px; background-color: #f3f4f6; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);'>{guidance.replace(chr(10), '<br>')}</div>", unsafe_allow_html=True)
+            st.markdown(
+                f"<div style='padding: 1.5rem; border-radius: 15px; background-color: #f3f4f6; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);'>{guidance.replace(chr(10), '<br>')}</div>",
+                unsafe_allow_html=True,
+            )
 
         elif predicted_class.strip() == "Invalid Input":
             guidance = """
@@ -393,15 +423,16 @@ If you have concerns or questions, always reach out to healthcare professionals.
             label="📄 Download Result Summary",
             data=summary_text,
             file_name="clock_test_result.txt",
-            mime="text/plain"
+            mime="text/plain",
         )
 
     except Exception as e:
         st.error(f"⚠️ Failed to open or analyze image: {e}")
         st.stop()
-      
+
 # --- Feedback Section ---
-st.markdown("""
+st.markdown(
+    """
 <div style='padding: 1.5rem; border-radius: 15px; background-color: #f9fafb; border: 1px solid #e5e7eb; margin-top: 2rem;'>
     <h4 style='color: #111827;'>📋 We’d Appreciate Your Feedback</h4>
     <p style='color: #4B5563; font-size: 1.05rem;'>
@@ -411,14 +442,19 @@ st.markdown("""
     <a href='https://docs.google.com/forms/d/1SbZXHxdveEXCWB0oYYqg_Vx_x2CtuO7o8zQrDc2Lf5w' target='_blank' style='text-decoration: none; font-weight: 500; color: #2563eb;'>👉 Click here to provide feedback</a>
     <p style='color: #6B7280; font-size: 0.95rem; margin-top: 1rem;'>We appreciate your time and feedback as we continue to improve this screening tool.</p>
 </div>
-""", unsafe_allow_html=True)
-
+""",
+    unsafe_allow_html=True,
+)
 
 # --- How It Works ---
-st.markdown("""<hr style="border: 1px solid #dcdcdc; margin-top: 2rem; margin-bottom: 1rem;">""", unsafe_allow_html=True)
+st.markdown(
+    """<hr style="border: 1px solid #dcdcdc; margin-top: 2rem; margin-bottom: 1rem;">""",
+    unsafe_allow_html=True,
+)
 
 with st.expander("⚙️ **How This App Works**", expanded=False):
-    st.markdown("""
+    st.markdown(
+        """
 **Step-by-step Process:**
 
 - **Upload Clock Drawing**  
@@ -439,20 +475,35 @@ with st.expander("⚙️ **How This App Works**", expanded=False):
   You’ll receive a prediction and a confidence score.
 
 > Note: This tool is experimental and not a replacement for clinical diagnosis.
-""", unsafe_allow_html=True)
+""",
+        unsafe_allow_html=True,
+    )
 
 # --- Learn More Section ---
-st.markdown("""<hr style="border: 1px solid #dcdcdc; margin-top: 2rem; margin-bottom: 1rem;">""", unsafe_allow_html=True)
+st.markdown(
+    """<hr style="border: 1px solid #dcdcdc; margin-top: 2rem; margin-bottom: 1rem;">""",
+    unsafe_allow_html=True,
+)
 st.markdown("### 🔎 Learn More About Parkinson's Disease")
-st.write("To understand more about Parkinson’s Disease, its symptoms, causes, and available treatments, read the World Health Organization's fact sheet:")
+st.write(
+    "To understand more about Parkinson’s Disease, its symptoms, causes, and available treatments, read the World Health Organization's fact sheet:"
+)
 st.markdown("[World Health Organization – Parkinson Disease (WHO)](https://www.who.int/news-room/fact-sheets/detail/parkinson-disease)")
 
 st.markdown("### 🔎 Learn More About Alzheimer’s Disease")
-st.write("To learn more about Alzheimer’s Disease, including its signs, stages, causes, and care options, visit the National Institute on Aging’s official resource:")
-st.markdown("[National Institute on Aging – What Is Alzheimer’s Disease?](https://www.nia.nih.gov/health/alzheimers-and-dementia/what-alzheimers-disease)")
+st.write(
+    "To learn more about Alzheimer’s Disease, including its signs, stages, causes, and care options, visit the National Institute on Aging’s official resource:"
+)
+st.markdown(
+    "[National Institute on Aging – What Is Alzheimer’s Disease?](https://www.nia.nih.gov/health/alzheimers-and-dementia/what-alzheimers-disease)"
+)
 
 # --- Disclaimer ---
-st.markdown("<p class='disclaimer'>Disclaimer: This tool is for educational and research purposes only and does not substitute professional medical advice.</p>", unsafe_allow_html=True)
+st.markdown(
+    "<p class='disclaimer'>Disclaimer: This tool is for educational and research purposes only and does not substitute professional medical advice.</p>",
+    unsafe_allow_html=True,
+)
+
 
 
 
