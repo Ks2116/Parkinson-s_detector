@@ -96,45 +96,11 @@ img {
     text-align: center;
 }
 
-@keyframes waveAnimation {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: 1000px 0;
-  }
-}
-
-<style>
-@keyframes waveAnimation {
-  0%   { background-position: 0 0; }
-  100% { background-position: 1200px 0; }
-}
-
-.wave-background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: url('https://i.ibb.co/DkxXbH0/turquoise-wave-long.png');
-  background-repeat: repeat-x;
-  background-size: 1200px auto;
-  animation: waveAnimation 40s linear infinite;
-  opacity: 0.08;
-  z-index: -1;
-}
-
-</style>
-""", unsafe_allow_html=True)
-
-st.markdown('<div class="wave-background"></div>', unsafe_allow_html=True)
-
 st.markdown("""
 <style>
-/* Gradient background still active */
+/* Remove the PNG background, focus on SVG wave */
 html, body, .stApp {
-    background: linear-gradient(200deg, #eef6fa, #40E0D0, #F4F5F0, #f8fbfe, #e9f3f7, #f6f9fc, #FFFFFF);
+    background: linear-gradient(200deg, #eef6fa, #F4F5F0, #f8fbfe, #e9f3f7, #f6f9fc, #FFFFFF);
     background-size: 300% 300%;
     background-attachment: fixed;
     animation: slowGradientShift 20s ease infinite;
@@ -144,13 +110,14 @@ html, body, .stApp {
     box-sizing: border-box;
 }
 
+/* Gradient animation */
 @keyframes slowGradientShift {
   0%   { background-position: 0% 50%; }
   50%  { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
 
-/* Actual Wave Background */
+/* Wave container */
 .wave-container {
   position: fixed;
   bottom: 0;
@@ -161,6 +128,7 @@ html, body, .stApp {
   overflow: hidden;
 }
 
+/* Animate the SVG path */
 .wave-container svg {
   width: 200%;
   height: 100%;
@@ -174,16 +142,16 @@ html, body, .stApp {
 }
 </style>
 
-<!-- Realistic Animated SVG Wave -->
+<!-- Animated turquoise wave -->
 <div class="wave-container">
 <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
   <path d="M0,40 C300,80 900,0 1200,40 L1200,120 L0,120 Z" 
-        fill="#40E0D0" opacity="0.15">
+        fill="#40E0D0" opacity="0.35">
     <animateTransform attributeName="transform"
                       attributeType="XML"
                       type="translate"
                       from="0,0" to="-200,0"
-                      dur="8s"
+                      dur="6s"
                       repeatCount="indefinite" />
   </path>
 </svg>
