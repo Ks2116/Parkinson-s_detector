@@ -483,26 +483,23 @@ If you have concerns or questions, always reach out to healthcare professionals.
             cursor_y -= 2 * line_height
 
          # Write bonus tip to PDF with proper page overflow handling
-bonus_lines = bonus_tip.strip().split("\n")
-text2 = c.beginText(margin, cursor_y)
-text2.setFont("Helvetica", 10)
-text2.setLeading(line_height)
+         bonus_lines = bonus_tip.strip().split("\n")
+         text2 = c.beginText(margin, cursor_y)
+         text2.setFont("Helvetica", 10)
+         text2.setLeading(line_height)
 
-for line in bonus_lines:
-    if cursor_y <= 100:
+       for line in bonus_lines:
+           if cursor_y <= 100:
+              c.drawText(text2)
+              c.showPage()
+              text2 = c.beginText(margin, height - 50)
+              text2.setFont("Helvetica", 10)
+           text2.setLeading(line_height)
+           cursor_y = height - 50
+           text2.textLine(line)
+           cursor_y -= line_height
+
         c.drawText(text2)
-        c.showPage()
-        text2 = c.beginText(margin, height - 50)
-        text2.setFont("Helvetica", 10)
-        text2.setLeading(line_height)
-        cursor_y = height - 50
-    text2.textLine(line)
-    cursor_y -= line_height
-
-c.drawText(text2)
-
-
-
         c.showPage()
         c.save()
         pdf_buffer.seek(0)
