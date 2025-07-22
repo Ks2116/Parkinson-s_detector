@@ -263,7 +263,7 @@ if uploaded_file is not None:
         st.success(f"**Prediction:** {predicted_class}")
         st.info(f"**The system is {confidence_score:.0%} confident in this result.**")
 
- summary_text = f"""
+        summary_text = f"""
         Parkinson's Clock Test Result
 
         Prediction: {predicted_class}
