@@ -7,6 +7,9 @@ import time
 from datetime import datetime
 import pytz
 import io
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter
+from reportlab.lib.utils import ImageReader
 
 singapore_time = datetime.now(pytz.timezone('Asia/Singapore')).strftime("%Y-%m-%d %H:%M")
 
@@ -420,9 +423,6 @@ If you have concerns or questions, always reach out to healthcare professionals.
         summary_text += bonus_tip
 
    # --- Create PDF ---
-from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import letter
-from reportlab.lib.utils import ImageReader
 
 pdf_buffer = io.BytesIO()
 c = canvas.Canvas(pdf_buffer, pagesize=letter)
