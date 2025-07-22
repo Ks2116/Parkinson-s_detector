@@ -10,6 +10,8 @@ import io
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.utils import ImageReader
+from textwrap import wrap
+
 
 singapore_time = datetime.now(pytz.timezone('Asia/Singapore')).strftime("%Y-%m-%d %H:%M")
 
