@@ -421,54 +421,93 @@ Regardless of the result, maintaining a healthy lifestyle including regular exer
 If you have concerns or questions, always reach out to healthcare professionals.
 """
         summary_text += bonus_tip
-   # --- Create PDF ---
+# --- Create PDF ---
+pdf_buffer = io.BytesIO()
+c = canvas.Canvas(pdf_buffer, pagesize=letter)
+width, height = letter
 
-        pdf_buffer = io.BytesIO()
-        c = canvas.Canvas(pdf_buffer, pagesize=letter)
-        width, height = letter
+margin = 50
+line_height = 14
+cursor_y = height - 50
 
-        c.setFont("Helvetica-Bold", 16)
-        c.drawString(50, height - 50, "🧠 Parkinson's Clock Drawing Test Result")
+# Title
+c.setFont("Helvetica-Bold", 16)
+c.drawString(margin, cursor_y, "Parkinson's Clock Drawing Test Result")
+cursor_y -= 2 * line_height
 
-        c.setFont("Helvetica", 10)
-        c.drawString(50, height - 70, f"Date: {singapore_time}")
-        c.drawString(50, height - 90, f"Prediction: {predicted_class}")
-        c.drawString(50, height - 110, f"Confidence: {confidence_score:.0%}")
+# Date & Prediction
+c.setFont("Helvetica", 10)
+c.drawString(margin, cursor_y, f"Date: {singapore_time}")
+cursor_y -= line_height
+c.drawString(margin, cursor_y, f"Prediction: {predicted_class}")
+cursor_y -= line_height
+c.drawString(margin, cursor_y, f"Confidence: {confidence_score:.0%}")
+cursor_y -= 2 * line_height
 
-        # Guidance text
-        text_obj = c.beginText(50, height - 150)
-        text_obj.setFont("Helvetica", 10)
-        text_obj.setLeading(14)
-        for line in guidance_block.split("\n"):
-            text_obj.textLine(line)
+# Guidance block
+text_obj = c.beginText(margin, cursor_y)
+text_obj.setFont("Helvetica", 10)
+text_obj.setLeading(line_height)
+for line in guidance_block.strip().split("\n"):
+    if cursor_y <= 100:  # New page if space is tight
         c.drawText(text_obj)
-
-        # Image in PDF
-        img_buffer = io.BytesIO()
-        image.convert("RGB").save(img_buffer, format="PNG")
-        img_buffer.seek(0)
-        c.drawImage(ImageReader(img_buffer), 50, height - 450, width=200, preserveAspectRatio=True)
-
-        # Bonus tip text
-        text2 = c.beginText(50, height - 480)
-        text2.setFont("Helvetica", 10)
-        text2.setLeading(14)
-        for line in bonus_tip.split("\n"):
-            text2.textLine(line)
-        c.drawText(text2)
-
         c.showPage()
-        c.save()
-        pdf_buffer.seek(0)
+        text_obj = c.beginText(margin, height - 50)
+        text_obj.setFont("Helvetica", 10)
+        text_obj.setLeading(line_height)
+        cursor_y = height - 50
+    text_obj.textLine(line)
+    cursor_y -= line_height
+c.drawText(text_obj)
+cursor_y -= 2 * line_height
 
-        
-        # PDF download button
-        st.download_button(
-            label="📄 Download Result as PDF",
-            data=pdf_buffer.getvalue(),
-            file_name="clock_test_result.pdf",
-            mime="application/pdf",
-        )
+# Insert user-uploaded image
+if cursor_y < 300:
+    c.showPage()
+    cursor_y = height - 50
+
+try:
+    img_buffer = io.BytesIO()
+    image.convert("RGB").save(img_buffer, format="PNG")
+    img_buffer.seek(0)
+    c.drawString(margin, cursor_y, "Uploaded Clock Drawing:")
+    cursor_y -= line_height
+    img_width = 250
+    img_height = 250
+    c.drawImage(ImageReader(img_buffer), margin, cursor_y - img_height, width=img_width, height=img_height)
+    cursor_y -= (img_height + 2 * line_height)
+except Exception as e:
+    c.drawString(margin, cursor_y, "Error displaying uploaded image.")
+    cursor_y -= 2 * line_height
+
+# Bonus tip
+text2 = c.beginText(margin, cursor_y)
+text2.setFont("Helvetica", 10)
+text2.setLeading(line_height)
+for line in bonus_tip.strip().split("\n"):
+    if cursor_y <= 100:
+        c.drawText(text2)
+        c.showPage()
+        text2 = c.beginText(margin, height - 50)
+        text2.setFont("Helvetica", 10)
+        text2.setLeading(line_height)
+        cursor_y = height - 50
+    text2.textLine(line)
+    cursor_y -= line_height
+c.drawText(text2)
+
+c.showPage()
+c.save()
+pdf_buffer.seek(0)
+
+# PDF download button
+st.download_button(
+    label="📄 Download Result as PDF",
+    data=pdf_buffer.getvalue(),
+    file_name="clock_test_result.pdf",
+    mime="application/pdf",
+)
+
 
     except Exception as e:
         st.error(f"⚠️ Failed to open or analyze image: {e}")
