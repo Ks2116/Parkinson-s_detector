@@ -64,7 +64,7 @@ html[data-theme="dark"], body[data-theme="dark"], .stApp[data-theme="dark"] {
 
 .banner {
     background: linear-gradient(135deg, #91c8ea, #d4eefc);
-    color: #fff;
+    color: #ffffff;
     text-align: center;
     padding: 2.5rem 1rem;
     border-radius: 16px;
