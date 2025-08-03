@@ -290,7 +290,11 @@ if uploaded_file is not None:
         with st.spinner("Running AI analysis on your clock drawing..."):
             time.sleep(2.5)
             predicted_class, confidence_score = predict_parkinsons(image, model, class_names)
-        st.success("Analysis complete! Please scroll down to see the results.")
+            
+      st.markdown(
+    "<p style='color: #444; font-size: 1rem; font-style: italic; margin-top: 1rem;'>✅ Analysis complete — please scroll down to view the full results.</p>",
+    unsafe_allow_html=True,
+)
         st.success(f"**Prediction:** {predicted_class}")
         st.info(f"**The system is {confidence_score:.0%} confident in this result.**")
 
