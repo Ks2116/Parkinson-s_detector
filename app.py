@@ -416,8 +416,6 @@ Regular checkups and awareness of cognitive health are always encouraged.
         bonus_tip = """
 ---
 
-💡 Bonus Tip:
-
 Regardless of the result, maintaining a healthy lifestyle including regular exercise, balanced diet, mental stimulation, and social interaction supports brain health.
 
 If you have concerns or questions, always reach out to healthcare professionals.
