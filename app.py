@@ -287,19 +287,19 @@ if uploaded_file is not None:
         st.markdown("### Uploaded Image")
         st.image(image, caption="Uploaded Clock Drawing", width=300)
 
-     with st.spinner("Running AI analysis on your clock drawing..."):
-    time.sleep(2.5)
-    predicted_class, confidence_score = predict_parkinsons(image, model, class_names)
+        with st.spinner("Running AI analysis on your clock drawing..."):
+            time.sleep(2.5)
+            predicted_class, confidence_score = predict_parkinsons(image, model, class_names)
 
-    st.markdown(
-        "<p style='color: #444; font-size: 1rem; font-style: italic; margin-top: 1rem;'>✅ Analysis complete — please scroll down to view the full results.</p>",
-        unsafe_allow_html=True,
-    )
+            st.markdown(
+                "<p style='color: #444; font-size: 1rem; font-style: italic; margin-top: 1rem;'> Analysis complete — please scroll down to view the full results.</p>",
+                unsafe_allow_html=True,
+            )
 
-st.success(f"**Prediction:** {predicted_class}")
-st.info(f"**The system is {confidence_score:.0%} confident in this result.**")
+        st.success(f"**Prediction:** {predicted_class}")
+        st.info(f"**The system is {confidence_score:.0%} confident in this result.**")
 
-
+    
         # Prepare summary text
         summary_text = f"""
 Parkinson's Clock Test Result
