@@ -541,12 +541,6 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# Go back to web page 
-if st.button("🔙 Go back to Webpage", key="top_button"):
-    js = "window.open('https://detectparkinson.wixsite.com/mysite')"
-    st.markdown(f"<script>{js}</script>", unsafe_allow_html=True)
-
-
 # --- How It Works ---
 st.markdown(
     """<hr style="border: 1px solid #dcdcdc; margin-top: 2rem; margin-bottom: 1rem;">""",
