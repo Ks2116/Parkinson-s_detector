@@ -541,9 +541,9 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# --- Go Back to Webpage Button ---
-if st.button("🔙 Go back to Webpage"):
-    js = "window.open('https://detectparkinson.wixsite.com/mysite')"  # opens in new tab
+# Go back to web page 
+if st.button("🔙 Go back to Webpage", key="top_button"):
+    js = "window.open('https://detectparkinson.wixsite.com/mysite')"
     st.markdown(f"<script>{js}</script>", unsafe_allow_html=True)
 
 
@@ -600,8 +600,8 @@ st.markdown(
 )
 
 # --- Go Back to Webpage Button ---
-if st.button("🔙 Go back to Webpage"):
-    js = "window.open('https://detectparkinson.wixsite.com/mysite')"  # opens in new tab
+if st.button("🔙 Go back to Webpage", key="bottom_button"):
+    js = "window.open('https://detectparkinson.wixsite.com/mysite')"
     st.markdown(f"<script>{js}</script>", unsafe_allow_html=True)
 
 
