@@ -599,6 +599,12 @@ st.markdown(
     "[National Institute on Aging – What Is Alzheimer’s Disease?](https://www.nia.nih.gov/health/alzheimers-and-dementia/what-alzheimers-disease)"
 )
 
+# --- Go Back to Webpage Button ---
+if st.button("🔙 Go back to Webpage"):
+    js = "window.open('https://detectparkinson.wixsite.com/mysite')"  # opens in new tab
+    st.markdown(f"<script>{js}</script>", unsafe_allow_html=True)
+
+
 # --- Disclaimer ---
 st.markdown(
     "<p class='disclaimer'>Disclaimer: This tool is for educational and research purposes only and does not substitute professional medical advice.</p>",
