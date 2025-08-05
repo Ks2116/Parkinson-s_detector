@@ -599,10 +599,28 @@ st.markdown(
     "[National Institute on Aging – What Is Alzheimer’s Disease?](https://www.nia.nih.gov/health/alzheimers-and-dementia/what-alzheimers-disease)"
 )
 
-# --- Go Back to Webpage Button ---
-if st.button("🔙 Go back to Webpage", key="bottom_button"):
-    js = "window.open('https://detectparkinson.wixsite.com/mysite')"
-    st.markdown(f"<script>{js}</script>", unsafe_allow_html=True)
+# Go back to webpage button
+st.markdown(
+    """
+    <div style="text-align: center;">
+        <a href="https://detectparkinson.wixsite.com/mysite" target="_blank">
+            <button style="
+                background-color: #4CAF50;
+                color: white;
+                padding: 0.75rem 1.5rem;
+                font-size: 1rem;
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            " onmouseover="this.style.backgroundColor='#45a049'" onmouseout="this.style.backgroundColor='#4CAF50'">
+                🔙 Go back to Webpage
+            </button>
+        </a>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
 
 
 # --- Disclaimer ---
