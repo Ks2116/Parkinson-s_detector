@@ -408,7 +408,7 @@ Try uploading a new image that follows the drawing instructions carefully.
 
 No unusual signs were detected in this drawing.
 
-Still, if you ever feel unsure or notice changes in thinking, memory, or coordination, it's perfectly okay to speak with a healthcare provider.
+Still, if you feel unsure or notice changes in thinking, memory, or coordination, it's okay to speak with a healthcare provider.
 
 Regular checkups and awareness of cognitive health are always encouraged.
 """
